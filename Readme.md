@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть» [![Build status][travis-image]][travis-url]
 
 * Студент: [Алексей Рылов](https://up.htmlacademy.ru/react/3/user/106372).
-* Наставник: `Неизвестно`.
+* Наставник: `[Алексей Балесный](https://htmlacademy.ru/profile/id221665).
 
 ---
 
