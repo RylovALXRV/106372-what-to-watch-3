@@ -1,17 +1,25 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Main from "../main/main.jsx";
 
-const App = (props) => {
-  // eslint-disable-next-line react/prop-types
-  const {title, genre, year} = props;
-
+const App = ({title, genre, year, movieTitles}) => {
   return (
     <Main
       title={title}
       genre={genre}
       year={year}
+      movieTitles={movieTitles}
     />
   );
+};
+
+App.propTypes = {
+  title: PropTypes.string.isRequired,
+  genre: PropTypes.string.isRequired,
+  year: PropTypes.number.isRequired,
+  movieTitles: PropTypes.arrayOf(
+      PropTypes.string.isRequired
+  ).isRequired
 };
 
 export default App;
