@@ -1,21 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import MovieCard from "../movie-card/movie-card.jsx";
 
-const createSmallMovieCardMarkup = (movieTitle, key) => {
-  return (
-    <article className="small-movie-card catalog__movies-card" key={key}>
-      <div className="small-movie-card__image">
-        <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-          alt={movieTitle} width="280" height="175"/>
-      </div>
-      <h3 className="small-movie-card__title">
-        <a className="small-movie-card__link" href="movie-page.html">{movieTitle}</a>
-      </h3>
-    </article>
-  );
-};
-
-const Main = ({title, genre, year, movieTitles}) => {
+const Main = ({title, genre, year, onMovieCardAnchorClick, movieTitles}) => {
   return (
     <React.Fragment>
       <section className="movie-card">
@@ -112,8 +99,13 @@ const Main = ({title, genre, year, movieTitles}) => {
           </ul>
 
           <div className="catalog__movies-list">
-            {/* пока нет id -> ключом будет i */}
-            {movieTitles.map((movieTitle, i) => createSmallMovieCardMarkup(movieTitle, i))}
+            {movieTitles.map((movieTitle) => (
+              <MovieCard
+                movieTitle={movieTitle}
+                onMovieCardAnchorClick={onMovieCardAnchorClick}
+                key={movieTitle + Math.random()}
+              />
+            ))}
           </div>
 
           <div className="catalog__more">
@@ -142,6 +134,7 @@ Main.propTypes = {
   title: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   year: PropTypes.number.isRequired,
+  onMovieCardAnchorClick: PropTypes.func.isRequired,
   movieTitles: PropTypes.arrayOf(
       PropTypes.string.isRequired
   ).isRequired
