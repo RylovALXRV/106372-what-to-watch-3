@@ -3,7 +3,10 @@ import Enzyme, {shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import MovieCard from "./movie-card";
 
-const MOVIE_TITLE = ``;
+const MovieCardFeature = {
+  TITLE: `title`,
+  POSTER: `poster.jpg`
+};
 
 Enzyme.configure({
   adapter: new Adapter()
@@ -14,14 +17,15 @@ it(`Should MovieCard button be pressed`, () => {
 
   const movieCard = shallow(
       <MovieCard
-        movieTitle={MOVIE_TITLE}
+        title={MovieCardFeature.TITLE}
+        poster={MovieCardFeature.POSTER}
         onMovieCardAnchorClick={onMovieCardAnchorClick}
       />
   );
 
   const movieCardAnchorElement = movieCard.find(`a.small-movie-card__link`);
 
-  movieCardAnchorElement.props().onClick();
+  movieCardAnchorElement.simulate(`click`);
 
   expect(onMovieCardAnchorClick.mock.calls.length).toBe(1);
 });

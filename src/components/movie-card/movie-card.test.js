@@ -2,12 +2,16 @@ import React from "react";
 import renderer from "react-test-renderer";
 import MovieCard from "./movie-card";
 
-const MOVIE_TITLE = `Johnny English`;
+const MovieCardFeature = {
+  TITLE: `Johnny English`,
+  POSTER: `johnny-english.jpg`
+};
 
 it(`Should MovieCard render correctly`, () => {
   const tree = renderer.create(
       <MovieCard
-        movieTitle={MOVIE_TITLE}
+        title={MovieCardFeature.TITLE}
+        poster={MovieCardFeature.POSTER}
         onMovieCardAnchorClick={() => {}}
       />
   ).toJSON();

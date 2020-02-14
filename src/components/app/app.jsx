@@ -4,13 +4,13 @@ import Main from "../main/main.jsx";
 
 const movieCardAnchorHandler = () => {};
 
-const App = ({title, genre, year, movieTitles}) => {
+const App = ({title, genre, year, movies}) => {
   return (
     <Main
       title={title}
       genre={genre}
       year={year}
-      movieTitles={movieTitles}
+      movies={movies}
       onMovieCardAnchorClick={movieCardAnchorHandler}
     />
   );
@@ -20,9 +20,12 @@ App.propTypes = {
   title: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   year: PropTypes.number.isRequired,
-  movieTitles: PropTypes.arrayOf(
-      PropTypes.string.isRequired
-  ).isRequired
+  movies: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        poster: PropTypes.string.isRequired
+      }).isRequired
+  ).isRequired,
 };
 
 export default App;
