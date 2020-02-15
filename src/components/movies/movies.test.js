@@ -1,12 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Main from "./main";
-
-const MovieCard = {
-  TITLE: `Moon`,
-  GENRE: `fantasy`,
-  YEAR: 2009
-};
+import Movies from "./movies";
 
 const filmFeature = {
   TITLES: [`Fantastic Beasts: The Crimes of Grindelwald`, `Bohemian Rhapsody`,
@@ -26,12 +20,9 @@ const generateFilms = () => {
   });
 };
 
-it(`Should Main render correctly`, () => {
+it(`Should Movies render correctly`, () => {
   const tree = renderer.create(
-      <Main
-        title={MovieCard.TITLE}
-        genre={MovieCard.GENRE}
-        year={MovieCard.YEAR}
+      <Movies
         movies={generateFilms()}
         onMovieCardAnchorClick={() => {}}
       />
