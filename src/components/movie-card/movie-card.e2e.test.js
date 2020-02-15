@@ -14,18 +14,26 @@ Enzyme.configure({
 
 it(`Should MovieCard button be pressed`, () => {
   const onMovieCardAnchorClick = jest.fn();
+  const onMovieCardMouseEnter = jest.fn();
+  const onMovieCardMouseLeave = jest.fn();
 
   const movieCard = shallow(
       <MovieCard
         title={MovieCardFeature.TITLE}
         poster={MovieCardFeature.POSTER}
         onMovieCardAnchorClick={onMovieCardAnchorClick}
+        onMovieCardMouseEnter={onMovieCardMouseEnter}
+        onMovieCardMouseLeave={onMovieCardMouseLeave}
       />
   );
 
   const movieCardAnchorElement = movieCard.find(`a.small-movie-card__link`);
 
   movieCardAnchorElement.simulate(`click`);
+  movieCard.simulate(`mouseenter`, MovieCardFeature);
+  movieCard.simulate(`mouseleave`, null);
 
-  expect(onMovieCardAnchorClick.mock.calls.length).toBe(1);
+  expect(onMovieCardAnchorClick).toHaveBeenCalledTimes(1);
+  expect(onMovieCardMouseEnter).toHaveBeenCalledWith(MovieCardFeature);
+  expect(onMovieCardMouseLeave).toHaveBeenCalledWith(null);
 });

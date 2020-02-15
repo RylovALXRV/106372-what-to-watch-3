@@ -2,8 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import Main from "../main/main.jsx";
 
-const movieCardAnchorHandler = () => {};
-
 const App = ({title, genre, year, movies}) => {
   return (
     <Main
@@ -11,7 +9,7 @@ const App = ({title, genre, year, movies}) => {
       genre={genre}
       year={year}
       movies={movies}
-      onMovieCardAnchorClick={movieCardAnchorHandler}
+      onMovieCardAnchorClick={() => {}}
     />
   );
 };

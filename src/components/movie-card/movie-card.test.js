@@ -13,6 +13,8 @@ it(`Should MovieCard render correctly`, () => {
         title={MovieCardFeature.TITLE}
         poster={MovieCardFeature.POSTER}
         onMovieCardAnchorClick={() => {}}
+        onMovieCardMouseEnter={() => {}}
+        onMovieCardMouseLeave={() => {}}
       />
   ).toJSON();
 

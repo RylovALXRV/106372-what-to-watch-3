@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Movies from "../movies/movies.jsx";
 
-const Main = ({title, genre, year, onMovieCardAnchorClick, movies}) => {
+const Main = ({title, genre, year, movies, onMovieCardAnchorClick}) => {
   return (
     <React.Fragment>
       <section className="movie-card">
