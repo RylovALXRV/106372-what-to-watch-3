@@ -264,6 +264,7 @@ Array [
         >
           <div
             className="small-movie-card__image"
+            onClick={[Function]}
           >
             <img
               alt="Fantastic Beasts: The Crimes of Grindelwald"
@@ -291,6 +292,7 @@ Array [
         >
           <div
             className="small-movie-card__image"
+            onClick={[Function]}
           >
             <img
               alt="Bohemian Rhapsody"
@@ -318,6 +320,7 @@ Array [
         >
           <div
             className="small-movie-card__image"
+            onClick={[Function]}
           >
             <img
               alt="Macbeth"
@@ -345,6 +348,7 @@ Array [
         >
           <div
             className="small-movie-card__image"
+            onClick={[Function]}
           >
             <img
               alt="Aviator"
@@ -372,6 +376,7 @@ Array [
         >
           <div
             className="small-movie-card__image"
+            onClick={[Function]}
           >
             <img
               alt="We need to talk about Kevin"
@@ -399,6 +404,7 @@ Array [
         >
           <div
             className="small-movie-card__image"
+            onClick={[Function]}
           >
             <img
               alt="What We Do in the Shadows"
@@ -426,6 +432,7 @@ Array [
         >
           <div
             className="small-movie-card__image"
+            onClick={[Function]}
           >
             <img
               alt="Revenant"
@@ -453,6 +460,7 @@ Array [
         >
           <div
             className="small-movie-card__image"
+            onClick={[Function]}
           >
             <img
               alt="Johnny English"

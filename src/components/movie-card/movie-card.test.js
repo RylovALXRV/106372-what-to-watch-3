@@ -4,7 +4,9 @@ import MovieCard from "./movie-card";
 
 const MovieCardFeature = {
   TITLE: `Johnny English`,
-  POSTER: `johnny-english.jpg`
+  POSTER: `johnny-english.jpg`,
+  GENRE: `action`,
+  YEAR: `2003`,
 };
 
 it(`Should MovieCard render correctly`, () => {
@@ -12,7 +14,10 @@ it(`Should MovieCard render correctly`, () => {
       <MovieCard
         title={MovieCardFeature.TITLE}
         poster={MovieCardFeature.POSTER}
+        genre={MovieCardFeature.GENRE}
+        year={MovieCardFeature.YEAR}
         onMovieCardAnchorClick={() => {}}
+        onMovieCardImageClick={() => {}}
         onMovieCardMouseEnter={() => {}}
         onMovieCardMouseLeave={() => {}}
       />

@@ -3,9 +3,11 @@ import Enzyme, {shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import MovieCard from "./movie-card";
 
-const MovieCardFeature = {
-  TITLE: `title`,
-  POSTER: `poster.jpg`
+const movieCardFeature = {
+  title: `title`,
+  poster: `poster.jpg`,
+  genre: `thriller`,
+  year: `2000`,
 };
 
 Enzyme.configure({
@@ -14,26 +16,35 @@ Enzyme.configure({
 
 it(`Should MovieCard button be pressed`, () => {
   const onMovieCardAnchorClick = jest.fn();
+  const onMovieCardImageClick = jest.fn();
   const onMovieCardMouseEnter = jest.fn();
   const onMovieCardMouseLeave = jest.fn();
 
   const movieCard = shallow(
       <MovieCard
-        title={MovieCardFeature.TITLE}
-        poster={MovieCardFeature.POSTER}
+        title={movieCardFeature.title}
+        poster={movieCardFeature.poster}
+        genre={movieCardFeature.genre}
+        year={movieCardFeature.year}
         onMovieCardAnchorClick={onMovieCardAnchorClick}
+        onMovieCardImageClick={onMovieCardImageClick}
         onMovieCardMouseEnter={onMovieCardMouseEnter}
         onMovieCardMouseLeave={onMovieCardMouseLeave}
       />
   );
 
   const movieCardAnchorElement = movieCard.find(`a.small-movie-card__link`);
+  const movieCardImageElement = movieCard.find(`div.small-movie-card__image`);
 
-  movieCardAnchorElement.simulate(`click`);
-  movieCard.simulate(`mouseenter`, MovieCardFeature);
-  movieCard.simulate(`mouseleave`, null);
+  movieCardAnchorElement.simulate(`click`, {preventDefault() {}});
+  movieCardImageElement.simulate(`click`, {preventDefault() {}});
+  movieCard.simulate(`mouseenter`, {preventDefault() {}});
+  movieCard.simulate(`mouseleave`, {preventDefault() {}});
 
   expect(onMovieCardAnchorClick).toHaveBeenCalledTimes(1);
-  expect(onMovieCardMouseEnter).toHaveBeenCalledWith(MovieCardFeature);
+  expect(onMovieCardImageClick).toHaveBeenCalledTimes(1);
+  expect(onMovieCardImageClick).toHaveBeenCalledWith(movieCardFeature);
+  expect(onMovieCardAnchorClick).toHaveBeenCalledWith(movieCardFeature);
+  expect(onMovieCardMouseEnter).toHaveBeenCalledWith(movieCardFeature.title);
   expect(onMovieCardMouseLeave).toHaveBeenCalledWith(null);
 });
