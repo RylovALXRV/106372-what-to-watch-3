@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Movies from "../movies/movies.jsx";
 
-const Main = ({title, genre, year, movies, onMovieCardAnchorClick}) => {
+const Main = ({title, genre, year, movies, onMovieCardAnchorClick, onMovieCardImageClick}) => {
   return (
     <React.Fragment>
       <section className="movie-card">
@@ -101,6 +101,7 @@ const Main = ({title, genre, year, movies, onMovieCardAnchorClick}) => {
           <Movies
             movies={movies}
             onMovieCardAnchorClick={onMovieCardAnchorClick}
+            onMovieCardImageClick={onMovieCardImageClick}
           />
 
           <div className="catalog__more">
@@ -130,6 +131,7 @@ Main.propTypes = {
   genre: PropTypes.string.isRequired,
   year: PropTypes.number.isRequired,
   onMovieCardAnchorClick: PropTypes.func.isRequired,
+  onMovieCardImageClick: PropTypes.func.isRequired,
   movies: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string.isRequired,
