@@ -18,7 +18,6 @@ export default class VideoPlayer extends PureComponent {
   }
 
   componentDidMount() {
-    console.log(this.state.isPlaying);
     const {preview, poster} = this.props;
     const video = this._videoRef.current;
 
