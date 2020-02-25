@@ -26,6 +26,8 @@ it(`Should MovieCard button be pressed`, () => {
         poster={movieCardFeature.poster}
         genre={movieCardFeature.genre}
         year={movieCardFeature.year}
+        preview={``}
+        activeCard={``}
         onMovieCardAnchorClick={onMovieCardAnchorClick}
         onMovieCardImageClick={onMovieCardImageClick}
         onMovieCardMouseEnter={onMovieCardMouseEnter}
@@ -37,8 +39,8 @@ it(`Should MovieCard button be pressed`, () => {
   const movieCardImageElement = movieCard.find(`div.small-movie-card__image`);
 
   movieCardAnchorElement.simulate(`click`, {preventDefault() {}});
-  movieCardImageElement.simulate(`click`, {preventDefault() {}});
-  movieCard.simulate(`mouseenter`, {preventDefault() {}});
+  movieCardImageElement.simulate(`click`);
+  movieCard.simulate(`mouseenter`);
   movieCard.simulate(`mouseleave`, {preventDefault() {}});
 
   expect(onMovieCardAnchorClick).toHaveBeenCalledTimes(1);

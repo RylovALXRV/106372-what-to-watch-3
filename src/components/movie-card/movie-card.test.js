@@ -7,6 +7,7 @@ const MovieCardFeature = {
   POSTER: `johnny-english.jpg`,
   GENRE: `action`,
   YEAR: `2003`,
+  PREVIEW: ``,
 };
 
 it(`Should MovieCard render correctly`, () => {
@@ -16,6 +17,8 @@ it(`Should MovieCard render correctly`, () => {
         poster={MovieCardFeature.POSTER}
         genre={MovieCardFeature.GENRE}
         year={MovieCardFeature.YEAR}
+        preview={MovieCardFeature.PREVIEW}
+        activeCard={``}
         onMovieCardAnchorClick={() => {}}
         onMovieCardImageClick={() => {}}
         onMovieCardMouseEnter={() => {}}

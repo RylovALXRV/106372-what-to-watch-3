@@ -1,22 +1,31 @@
 import React from "react";
 import PropTypes from "prop-types";
+import VideoPlayer from "../video-player/video-player.jsx";
 
-const MovieCard = ({title, poster, genre, year, onMovieCardAnchorClick,
-  onMovieCardImageClick, onMovieCardMouseEnter, onMovieCardMouseLeave}) => {
+const MovieCard = ({title, poster, genre, year, preview, onMovieCardAnchorClick,
+  onMovieCardImageClick, onMovieCardMouseEnter, onMovieCardMouseLeave, activeCard}) => {
+
+  const isPlaying = title === activeCard;
+
   return (
     <article className="small-movie-card catalog__movies-card"
-      onMouseEnter={() => {
-        onMovieCardMouseEnter(title);
-      }}
-      onMouseLeave={() => {
-        onMovieCardMouseLeave(null);
-      }}
+      onMouseEnter={() => onMovieCardMouseEnter(title)}
+      onMouseLeave={() => onMovieCardMouseLeave(null)}
     >
       <div className="small-movie-card__image"
         onClick={() => {
           onMovieCardImageClick({title, poster, genre, year});
         }}>
-        <img src={`img/${poster}`} alt={title} width="280" height="175" />
+        {isPlaying ?
+          <VideoPlayer
+            isPlaying={isPlaying}
+            preview={preview}
+            title={title}
+            poster={poster}
+          /> :
+          <img src={`img/${poster}`} alt={title} width="280" height="175" />
+        }
+
       </div>
       <h3 className="small-movie-card__title">
         <a
@@ -37,6 +46,8 @@ MovieCard.propTypes = {
   poster: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   year: PropTypes.string.isRequired,
+  preview: PropTypes.string.isRequired,
+  activeCard: PropTypes.string,
   onMovieCardAnchorClick: PropTypes.func.isRequired,
   onMovieCardImageClick: PropTypes.func.isRequired,
   onMovieCardMouseEnter: PropTypes.func.isRequired,

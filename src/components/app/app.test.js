@@ -27,6 +27,7 @@ const generateFilms = () => {
       poster: filmFeature.POSTERS[i],
       genre: filmFeature.GENRES[i],
       year: filmFeature.YEARS[i],
+      preview: ``,
     };
   });
 };

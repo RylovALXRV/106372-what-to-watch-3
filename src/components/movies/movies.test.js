@@ -12,6 +12,7 @@ const filmFeature = {
   GENRES: [`fantasy`, `drama`, `military`, `drama`, `drama`, `horror`, `thriller`,
     `action`],
   YEARS: [`2018`, `2019`, `1971`, `2004`, `2011`, `2015`, `2015`, `2003`],
+  PREVIEW: ``,
 };
 
 const generateFilms = () => {
@@ -21,6 +22,7 @@ const generateFilms = () => {
       poster: filmFeature.POSTERS[i],
       genre: filmFeature.GENRES[i],
       year: filmFeature.YEARS[i],
+      preview: ``
     };
   });
 };

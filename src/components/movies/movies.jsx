@@ -7,7 +7,8 @@ class Movies extends PureComponent {
     super(props);
 
     this.state = {
-      activeCard: null
+      activeCard: null,
+      title: null,
     };
   }
 
@@ -22,16 +23,22 @@ class Movies extends PureComponent {
 
     return (
       <div className="catalog__movies-list">
-        {movies.map(({title: movieTitle, poster, genre, year}) => (
+        {movies.map(({title: movieTitle, poster, genre, year, preview}) => (
           <MovieCard
             title={movieTitle}
             poster={poster}
             genre={genre}
             year={year}
+            preview={preview}
+            activeCard={this.state.activeCard}
             onMovieCardAnchorClick={onMovieCardAnchorClick}
             onMovieCardImageClick={onMovieCardImageClick}
-            onMovieCardMouseEnter={(movieCardTitle) => this._setStateForMovie(movieCardTitle)}
-            onMovieCardMouseLeave={(startState) => this._setStateForMovie(startState)}
+            onMovieCardMouseEnter={(movieCardTitle) => {
+              this._setStateForMovie(movieCardTitle);
+            }}
+            onMovieCardMouseLeave={(startState) => {
+              this._setStateForMovie(startState);
+            }}
             key={movieTitle}
           />
         ))}
@@ -42,11 +49,12 @@ class Movies extends PureComponent {
 
 Movies.propTypes = {
   movies: PropTypes.arrayOf(
-      PropTypes.shape({
+      PropTypes.exact({
         title: PropTypes.string.isRequired,
         poster: PropTypes.string.isRequired,
         genre: PropTypes.string.isRequired,
         year: PropTypes.string.isRequired,
+        preview: PropTypes.string.isRequired,
       }).isRequired
   ).isRequired,
   onMovieCardAnchorClick: PropTypes.func.isRequired,

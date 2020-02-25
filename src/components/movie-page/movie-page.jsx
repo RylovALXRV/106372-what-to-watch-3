@@ -1,7 +1,8 @@
 import React, {Fragment} from "react";
 import PropTypes from "prop-types";
+import MovieCard from "../movie-card/movie-card.jsx";
 
-const MoviePage = ({card}) => {
+const MoviePage = ({card, movies, onMovieCardAnchorClick, onMovieCardImageClick}) => {
   const {title, poster, genre, year} = card;
 
   return (
@@ -111,43 +112,22 @@ const MoviePage = ({card}) => {
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__movies-list">
-            <article className="small-movie-card catalog__movies-card">
-              <div className="small-movie-card__image">
-                <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-                  alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175"/>
-              </div>
-              <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">Fantastic Beasts: The Crimes of
-                  Grindelwald</a>
-              </h3>
-            </article>
-
-            <article className="small-movie-card catalog__movies-card">
-              <div className="small-movie-card__image">
-                <img src="img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175"/>
-              </div>
-              <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">Bohemian Rhapsody</a>
-              </h3>
-            </article>
-
-            <article className="small-movie-card catalog__movies-card">
-              <div className="small-movie-card__image">
-                <img src="img/macbeth.jpg" alt="Macbeth" width="280" height="175"/>
-              </div>
-              <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">Macbeth</a>
-              </h3>
-            </article>
-
-            <article className="small-movie-card catalog__movies-card">
-              <div className="small-movie-card__image">
-                <img src="img/aviator.jpg" alt="Aviator" width="280" height="175"/>
-              </div>
-              <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">Aviator</a>
-              </h3>
-            </article>
+            {movies.slice(0, 4).map(({title: titleCard, poster: posterCard, genre: genreCard, year: yearCard, preview}, i) => {
+              return (
+                <MovieCard
+                  year={yearCard}
+                  genre={genreCard}
+                  title={titleCard}
+                  poster={posterCard}
+                  preview={preview}
+                  onMovieCardAnchorClick={onMovieCardAnchorClick}
+                  onMovieCardImageClick={onMovieCardImageClick}
+                  onMovieCardMouseEnter={() => {}}
+                  onMovieCardMouseLeave={() => {}}
+                  key={`${title}-${i}`}
+                />
+              );
+            })}
           </div>
         </section>
 
@@ -176,6 +156,17 @@ MoviePage.propTypes = {
     genre: PropTypes.string.isRequired,
     year: PropTypes.string.isRequired,
   }).isRequired,
+  movies: PropTypes.arrayOf(
+      PropTypes.exact({
+        title: PropTypes.string.isRequired,
+        poster: PropTypes.string.isRequired,
+        genre: PropTypes.string.isRequired,
+        year: PropTypes.string.isRequired,
+        preview: PropTypes.string.isRequired,
+      })
+  ).isRequired,
+  onMovieCardAnchorClick: PropTypes.func,
+  onMovieCardImageClick: PropTypes.func,
 };
 
 export default MoviePage;
