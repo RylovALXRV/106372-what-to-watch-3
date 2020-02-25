@@ -3,9 +3,7 @@ import PropTypes from "prop-types";
 import VideoPlayer from "../video-player/video-player.jsx";
 
 const MovieCard = ({title, poster, genre, year, preview, onMovieCardAnchorClick,
-  onMovieCardImageClick, onMovieCardMouseEnter, onMovieCardMouseLeave, activeCard}) => {
-
-  const isPlaying = title === activeCard;
+  onMovieCardImageClick, onMovieCardMouseEnter, onMovieCardMouseLeave, isPlaying}) => {
 
   return (
     <article className="small-movie-card catalog__movies-card"
@@ -25,7 +23,6 @@ const MovieCard = ({title, poster, genre, year, preview, onMovieCardAnchorClick,
           /> :
           <img src={`img/${poster}`} alt={title} width="280" height="175" />
         }
-
       </div>
       <h3 className="small-movie-card__title">
         <a
@@ -47,7 +44,7 @@ MovieCard.propTypes = {
   genre: PropTypes.string.isRequired,
   year: PropTypes.string.isRequired,
   preview: PropTypes.string.isRequired,
-  activeCard: PropTypes.string,
+  isPlaying: PropTypes.bool.isRequired,
   onMovieCardAnchorClick: PropTypes.func.isRequired,
   onMovieCardImageClick: PropTypes.func.isRequired,
   onMovieCardMouseEnter: PropTypes.func.isRequired,

@@ -1,6 +1,8 @@
 import React, {PureComponent, createRef} from "react";
 import PropTypes from "prop-types";
 
+const VIDEO_START_SETTIMEOUT = 1000;
+
 export default class VideoPlayer extends PureComponent {
   constructor(props) {
     super(props);
@@ -9,13 +11,14 @@ export default class VideoPlayer extends PureComponent {
     this._timerId = null;
 
     this.state = {
-      isLoading: props.isPlaying,
+      isLoading: true,
       isPlaying: props.isPlaying,
       progress: 0,
     };
   }
 
   componentDidMount() {
+    console.log(this.state.isPlaying);
     const {preview, poster} = this.props;
     const video = this._videoRef.current;
 
@@ -47,9 +50,10 @@ export default class VideoPlayer extends PureComponent {
     video.src = ``;
     video.poster = ``;
     video.muted = false;
-    this._timerId = null;
 
     clearTimeout(this._timerId);
+
+    this._timerId = null;
   }
 
   render() {
@@ -61,7 +65,9 @@ export default class VideoPlayer extends PureComponent {
   componentDidUpdate() {
     const video = this._videoRef.current;
 
-    this._timerId = setTimeout(() => video.play(), 1000);
+    if (this.props.isPlaying) {
+      this._timerId = setTimeout(() => video.play(), VIDEO_START_SETTIMEOUT);
+    }
   }
 }
 

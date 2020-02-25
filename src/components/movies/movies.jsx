@@ -8,13 +8,14 @@ class Movies extends PureComponent {
 
     this.state = {
       activeCard: null,
-      title: null,
+      activeCardIndex: -1,
     };
   }
 
-  _setStateForMovie(state) {
+  _setStateForMovie(state, index) {
     this.setState({
       activeCard: state,
+      activeCardIndex: index,
     });
   }
 
@@ -23,25 +24,28 @@ class Movies extends PureComponent {
 
     return (
       <div className="catalog__movies-list">
-        {movies.map(({title: movieTitle, poster, genre, year, preview}) => (
-          <MovieCard
-            title={movieTitle}
-            poster={poster}
-            genre={genre}
-            year={year}
-            preview={preview}
-            activeCard={this.state.activeCard}
-            onMovieCardAnchorClick={onMovieCardAnchorClick}
-            onMovieCardImageClick={onMovieCardImageClick}
-            onMovieCardMouseEnter={(movieCardTitle) => {
-              this._setStateForMovie(movieCardTitle);
-            }}
-            onMovieCardMouseLeave={(startState) => {
-              this._setStateForMovie(startState);
-            }}
-            key={movieTitle}
-          />
-        ))}
+        {movies.map(({title: movieTitle, poster, genre, year, preview}, i) => {
+          return (
+            <MovieCard
+              title={movieTitle}
+              poster={poster}
+              genre={genre}
+              year={year}
+              preview={preview}
+              isPlaying={(i === this.state.activeCardIndex) || false}
+              onMovieCardAnchorClick={onMovieCardAnchorClick}
+              onMovieCardImageClick={onMovieCardImageClick}
+              onMovieCardMouseEnter={(movieCardTitle) => {
+                this._setStateForMovie(movieCardTitle, i);
+              }}
+              onMovieCardMouseLeave={(startState) => {
+                this._setStateForMovie(startState, -1);
+              }}
+              key={movieTitle}
+            />
+          );
+
+        })}
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import React, {Fragment} from "react";
 import PropTypes from "prop-types";
 import MovieCard from "../movie-card/movie-card.jsx";
+import {MovieCardIndex} from "../../const";
 
 const MoviePage = ({card, movies, onMovieCardAnchorClick, onMovieCardImageClick}) => {
   const {title, poster, genre, year} = card;
@@ -112,22 +113,24 @@ const MoviePage = ({card, movies, onMovieCardAnchorClick, onMovieCardImageClick}
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__movies-list">
-            {movies.slice(0, 4).map(({title: titleCard, poster: posterCard, genre: genreCard, year: yearCard, preview}, i) => {
-              return (
-                <MovieCard
-                  year={yearCard}
-                  genre={genreCard}
-                  title={titleCard}
-                  poster={posterCard}
-                  preview={preview}
-                  onMovieCardAnchorClick={onMovieCardAnchorClick}
-                  onMovieCardImageClick={onMovieCardImageClick}
-                  onMovieCardMouseEnter={() => {}}
-                  onMovieCardMouseLeave={() => {}}
-                  key={`${title}-${i}`}
-                />
-              );
-            })}
+            {movies.slice(MovieCardIndex.START, MovieCardIndex.END).map(
+                ({title: titleCard, poster: posterCard, genre: genreCard, year: yearCard, preview}, i) => {
+                  return (
+                    <MovieCard
+                      year={yearCard}
+                      genre={genreCard}
+                      title={titleCard}
+                      poster={posterCard}
+                      preview={preview}
+                      isPlaying={false}
+                      onMovieCardAnchorClick={onMovieCardAnchorClick}
+                      onMovieCardImageClick={onMovieCardImageClick}
+                      onMovieCardMouseEnter={() => {}}
+                      onMovieCardMouseLeave={() => {}}
+                      key={`${title}-${i}`}
+                    />
+                  );
+                })}
           </div>
         </section>
 

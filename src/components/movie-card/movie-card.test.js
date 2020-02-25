@@ -18,7 +18,7 @@ it(`Should MovieCard render correctly`, () => {
         genre={MovieCardFeature.GENRE}
         year={MovieCardFeature.YEAR}
         preview={MovieCardFeature.PREVIEW}
-        activeCard={``}
+        isPlaying={false}
         onMovieCardAnchorClick={() => {}}
         onMovieCardImageClick={() => {}}
         onMovieCardMouseEnter={() => {}}
