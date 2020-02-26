@@ -31,8 +31,7 @@ class App extends PureComponent {
           genre={genre}
           year={year}
           movies={movies}
-          onMovieCardAnchorClick={(movie) => this._setStateForMovie(movie)}
-          onMovieCardImageClick={(movie) => this._setStateForMovie(movie)}
+          onMovieCardClick={(movie) => this._setStateForMovie(movie)}
         />
       );
     }
@@ -41,8 +40,7 @@ class App extends PureComponent {
       <MoviePage
         card={card}
         movies={movies}
-        onMovieCardAnchorClick={(movie) => this._setStateForMovie(movie)}
-        onMovieCardImageClick={(movie) => this._setStateForMovie(movie)}
+        onMovieCardClick={(movie) => this._setStateForMovie(movie)}
       />
     );
   }

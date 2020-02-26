@@ -2,9 +2,13 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import MovieCard from "../movie-card/movie-card.jsx";
 
+const VIDEO_START_SETTIMEOUT = 1000;
+
 class Movies extends PureComponent {
   constructor(props) {
     super(props);
+
+    this._timerId = null;
 
     this.state = {
       activeCard: null,
@@ -20,31 +24,33 @@ class Movies extends PureComponent {
   }
 
   render() {
-    const {movies, onMovieCardAnchorClick, onMovieCardImageClick} = this.props;
+    const {movies, onMovieCardClick} = this.props;
 
     return (
       <div className="catalog__movies-list">
-        {movies.map(({title: movieTitle, poster, genre, year, preview}, i) => {
+        {movies.map(({title, poster, genre, year, preview}, i) => {
           return (
             <MovieCard
-              title={movieTitle}
+              title={title}
               poster={poster}
-              genre={genre}
-              year={year}
               preview={preview}
               isPlaying={i === this.state.activeCardIndex}
-              onMovieCardAnchorClick={onMovieCardAnchorClick}
-              onMovieCardImageClick={onMovieCardImageClick}
-              onMovieCardMouseEnter={(movieCardTitle) => {
-                this._setStateForMovie(movieCardTitle, i);
+              onMovieCardClick={() => {
+                onMovieCardClick({title, poster, genre, year});
+                if (this._timerId) {
+                  clearTimeout(this._timerId);
+                }
               }}
-              onMovieCardMouseLeave={(startState) => {
-                this._setStateForMovie(startState, -1);
+              onMovieCardMouseEnter={() => {
+                this._timerId = setTimeout(() => this._setStateForMovie(title, i), VIDEO_START_SETTIMEOUT);
               }}
-              key={movieTitle}
+              onMovieCardMouseLeave={() => {
+                this._setStateForMovie(null, -1);
+                clearTimeout(this._timerId);
+              }}
+              key={title}
             />
           );
-
         })}
       </div>
     );
@@ -61,8 +67,7 @@ Movies.propTypes = {
         preview: PropTypes.string.isRequired,
       }).isRequired
   ).isRequired,
-  onMovieCardAnchorClick: PropTypes.func.isRequired,
-  onMovieCardImageClick: PropTypes.func.isRequired,
+  onMovieCardClick: PropTypes.func.isRequired,
 };
 
 export default Movies;

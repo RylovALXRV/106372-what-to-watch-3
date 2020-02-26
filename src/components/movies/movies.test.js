@@ -31,8 +31,7 @@ it(`Should Movies render correctly`, () => {
   const tree = renderer.create(
       <Movies
         movies={generateFilms()}
-        onMovieCardAnchorClick={() => {}}
-        onMovieCardImageClick={() => {}}
+        onMovieCardClick={() => {}}
       />, {
         createNodeMock: () => {
           return {};

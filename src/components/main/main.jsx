@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Movies from "../movies/movies.jsx";
 
-const Main = ({title, genre, year, movies, onMovieCardAnchorClick, onMovieCardImageClick}) => {
+const Main = ({title, genre, year, movies, onMovieCardClick}) => {
   return (
     <React.Fragment>
       <section className="movie-card">
@@ -45,13 +45,13 @@ const Main = ({title, genre, year, movies, onMovieCardAnchorClick, onMovieCardIm
               <div className="movie-card__buttons">
                 <button className="btn btn--play movie-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
+                    <use xlinkHref="#play-s" />
                   </svg>
                   <span>Play</span>
                 </button>
                 <button className="btn btn--list movie-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
+                    <use xlinkHref="#add" />
                   </svg>
                   <span>My list</span>
                 </button>
@@ -100,8 +100,7 @@ const Main = ({title, genre, year, movies, onMovieCardAnchorClick, onMovieCardIm
 
           <Movies
             movies={movies}
-            onMovieCardAnchorClick={onMovieCardAnchorClick}
-            onMovieCardImageClick={onMovieCardImageClick}
+            onMovieCardClick={onMovieCardClick}
           />
 
           <div className="catalog__more">
@@ -130,8 +129,7 @@ Main.propTypes = {
   title: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   year: PropTypes.number.isRequired,
-  onMovieCardAnchorClick: PropTypes.func.isRequired,
-  onMovieCardImageClick: PropTypes.func.isRequired,
+  onMovieCardClick: PropTypes.func.isRequired,
   movies: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string.isRequired,

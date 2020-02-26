@@ -15,10 +15,9 @@ Enzyme.configure({
 });
 
 it(`Should MovieCard button be pressed`, () => {
-  const {title, poster, genre, year} = mock;
+  const {title, poster} = mock;
 
-  const onMovieCardAnchorClick = jest.fn();
-  const onMovieCardImageClick = jest.fn();
+  const onMovieCardClick = jest.fn();
   const onMovieCardMouseEnter = jest.fn();
   const onMovieCardMouseLeave = jest.fn();
 
@@ -26,12 +25,9 @@ it(`Should MovieCard button be pressed`, () => {
       <MovieCard
         title={title}
         poster={poster}
-        genre={genre}
-        year={year}
         preview={`https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`}
         isPlaying={false}
-        onMovieCardAnchorClick={onMovieCardAnchorClick}
-        onMovieCardImageClick={onMovieCardImageClick}
+        onMovieCardClick={onMovieCardClick}
         onMovieCardMouseEnter={onMovieCardMouseEnter}
         onMovieCardMouseLeave={onMovieCardMouseLeave}
       />
@@ -45,11 +41,11 @@ it(`Should MovieCard button be pressed`, () => {
   movieCard.simulate(`mouseenter`);
   movieCard.simulate(`mouseleave`, {preventDefault() {}});
 
-  expect(onMovieCardAnchorClick).toHaveBeenCalledTimes(1);
-  expect(onMovieCardImageClick).toHaveBeenCalledTimes(1);
-  expect(onMovieCardImageClick).toHaveBeenCalledWith(mock);
-  expect(onMovieCardAnchorClick).toHaveBeenCalledWith(mock);
-  // не работает из-за setTimeout
+  expect(onMovieCardClick).toHaveBeenCalledTimes(2);
+
+  // закомментировал, т.к. сейчас сравнивать не с чем, нет аргументов
+
+  // expect(onMovieCardClick).toHaveBeenCalledWith(mock);
   // expect(onMovieCardMouseEnter).toHaveBeenCalledWith(title);
-  expect(onMovieCardMouseLeave).toHaveBeenCalledWith(null);
+  // expect(onMovieCardMouseLeave).toHaveBeenCalledWith(null);
 });

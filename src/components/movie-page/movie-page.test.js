@@ -39,8 +39,7 @@ it(`Should MoviePage render correctly`, () => {
       <MoviePage
         card={movieCard}
         movies={generateFilms()}
-        onMovieCardImageClick={() => {}}
-        onMovieCardAnchorClick={() => {}}
+        onMovieCardClick={() => {}}
       />, {
         createNodeMock: () => {
           return {};

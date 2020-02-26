@@ -40,8 +40,7 @@ it(`Should Main render correctly`, () => {
         genre={MovieCard.GENRE}
         year={MovieCard.YEAR}
         movies={generateFilms()}
-        onMovieCardAnchorClick={() => {}}
-        onMovieCardImageClick={() => {}}
+        onMovieCardClick={() => {}}
       />, {
         createNodeMock: () => {
           return {};

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import MovieCard from "../movie-card/movie-card.jsx";
 import {MovieCardIndex} from "../../const";
 
-const MoviePage = ({card, movies, onMovieCardAnchorClick, onMovieCardImageClick}) => {
+const MoviePage = ({card, movies, onMovieCardClick}) => {
   const {title, poster, genre, year} = card;
 
   return (
@@ -114,20 +114,19 @@ const MoviePage = ({card, movies, onMovieCardAnchorClick, onMovieCardImageClick}
 
           <div className="catalog__movies-list">
             {movies.slice(MovieCardIndex.START, MovieCardIndex.END).map(
-                ({title: titleCard, poster: posterCard, genre: genreCard, year: yearCard, preview}, i) => {
+                ({title: movieTitle, poster: posterCard, genre: genreCard, year: yearCard, preview}, i) => {
                   return (
                     <MovieCard
                       year={yearCard}
                       genre={genreCard}
-                      title={titleCard}
+                      title={movieTitle}
                       poster={posterCard}
                       preview={preview}
                       isPlaying={false}
-                      onMovieCardAnchorClick={onMovieCardAnchorClick}
-                      onMovieCardImageClick={onMovieCardImageClick}
+                      onMovieCardClick={onMovieCardClick}
                       onMovieCardMouseEnter={() => {}}
                       onMovieCardMouseLeave={() => {}}
-                      key={`${title}-${i}`}
+                      key={`${movieTitle}-${i}`}
                     />
                   );
                 })}
@@ -168,8 +167,7 @@ MoviePage.propTypes = {
         preview: PropTypes.string.isRequired,
       })
   ).isRequired,
-  onMovieCardAnchorClick: PropTypes.func,
-  onMovieCardImageClick: PropTypes.func,
+  onMovieCardClick: PropTypes.func,
 };
 
 export default MoviePage;
