@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
+import films from "../../mocks/films";
 
 class App extends PureComponent {
   constructor(props) {
@@ -30,21 +31,18 @@ class App extends PureComponent {
           genre={genre}
           year={year}
           movies={movies}
-          onMovieCardAnchorClick={(movie) => this._setStateForMovie(movie)}
-          onMovieCardImageClick={(movie) => this._setStateForMovie(movie)}
+          onMovieCardClick={(movie) => this._setStateForMovie(movie)}
         />
       );
     }
 
-    if (card) {
-      return (
-        <MoviePage
-          card={card}
-        />
-      );
-    }
-
-    return null;
+    return (
+      <MoviePage
+        card={card}
+        movies={movies}
+        onMovieCardClick={(movie) => this._setStateForMovie(movie)}
+      />
+    );
   }
 
   render() {
@@ -55,7 +53,10 @@ class App extends PureComponent {
             {this._renderMovieScreen()}
           </Route>
           <Route exact path="/movie-page">
-            <MoviePage card={this.props.movies[0]}/>
+            <MoviePage
+              card={this.props.movies[0]}
+              movies={films}
+            />
           </Route>
         </Switch>
       </BrowserRouter>

@@ -1,22 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
+import VideoPlayer from "../video-player/video-player.jsx";
 
-const MovieCard = ({title, poster, genre, year, onMovieCardAnchorClick,
-  onMovieCardImageClick, onMovieCardMouseEnter, onMovieCardMouseLeave}) => {
+const MovieCard = ({title, poster, preview, isPlaying, onMovieCardClick,
+  onMovieCardMouseEnter, onMovieCardMouseLeave}) => {
+
   return (
     <article className="small-movie-card catalog__movies-card"
-      onMouseEnter={() => {
-        onMovieCardMouseEnter(title);
-      }}
-      onMouseLeave={() => {
-        onMovieCardMouseLeave(null);
-      }}
+      onMouseEnter={onMovieCardMouseEnter}
+      onMouseLeave={onMovieCardMouseLeave}
     >
       <div className="small-movie-card__image"
-        onClick={() => {
-          onMovieCardImageClick({title, poster, genre, year});
-        }}>
-        <img src={`img/${poster}`} alt={title} width="280" height="175" />
+        onClick={onMovieCardClick}>
+        <VideoPlayer
+          isPlaying={isPlaying}
+          preview={preview}
+          title={title}
+          poster={poster}
+        />
       </div>
       <h3 className="small-movie-card__title">
         <a
@@ -24,7 +25,7 @@ const MovieCard = ({title, poster, genre, year, onMovieCardAnchorClick,
           href="movie-page.html"
           onClick={(evt) => {
             evt.preventDefault();
-            onMovieCardAnchorClick({title, poster, genre, year});
+            onMovieCardClick();
           }}
         >{title}</a>
       </h3>
@@ -35,10 +36,9 @@ const MovieCard = ({title, poster, genre, year, onMovieCardAnchorClick,
 MovieCard.propTypes = {
   title: PropTypes.string.isRequired,
   poster: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
-  year: PropTypes.string.isRequired,
-  onMovieCardAnchorClick: PropTypes.func.isRequired,
-  onMovieCardImageClick: PropTypes.func.isRequired,
+  preview: PropTypes.string.isRequired,
+  isPlaying: PropTypes.bool.isRequired,
+  onMovieCardClick: PropTypes.func.isRequired,
   onMovieCardMouseEnter: PropTypes.func.isRequired,
   onMovieCardMouseLeave: PropTypes.func.isRequired,
 };

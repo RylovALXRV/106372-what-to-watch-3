@@ -18,6 +18,7 @@ const filmFeature = {
   GENRES: [`fantasy`, `drama`, `military`, `drama`, `drama`, `horror`, `thriller`,
     `action`],
   YEARS: [`2018`, `2019`, `1971`, `2004`, `2011`, `2015`, `2015`, `2003`],
+  PREVIEW: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
 };
 
 const generateFilms = () => {
@@ -27,6 +28,7 @@ const generateFilms = () => {
       poster: filmFeature.POSTERS[i],
       genre: filmFeature.GENRES[i],
       year: filmFeature.YEARS[i],
+      preview: filmFeature.PREVIEW,
     };
   });
 };
@@ -38,7 +40,11 @@ it(`Render App`, () => {
         genre={MovieCard.GENRE}
         year={MovieCard.YEAR}
         movies={generateFilms()}
-      />
+      />, {
+        createNodeMock: () => {
+          return {};
+        }
+      }
   ).toJSON();
 
   expect(tree).toMatchSnapshot();

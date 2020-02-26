@@ -2,39 +2,56 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import MovieCard from "../movie-card/movie-card.jsx";
 
+const VIDEO_START_SETTIMEOUT = 1000;
+
 class Movies extends PureComponent {
   constructor(props) {
     super(props);
 
+    this._timerId = null;
+
     this.state = {
-      activeCard: null
+      activeCard: null,
+      activeCardIndex: -1,
     };
   }
 
-  _setStateForMovie(state) {
+  _setStateForMovie(state, index) {
     this.setState({
       activeCard: state,
+      activeCardIndex: index,
     });
   }
 
   render() {
-    const {movies, onMovieCardAnchorClick, onMovieCardImageClick} = this.props;
+    const {movies, onMovieCardClick} = this.props;
 
     return (
       <div className="catalog__movies-list">
-        {movies.map(({title: movieTitle, poster, genre, year}) => (
-          <MovieCard
-            title={movieTitle}
-            poster={poster}
-            genre={genre}
-            year={year}
-            onMovieCardAnchorClick={onMovieCardAnchorClick}
-            onMovieCardImageClick={onMovieCardImageClick}
-            onMovieCardMouseEnter={(movieCardTitle) => this._setStateForMovie(movieCardTitle)}
-            onMovieCardMouseLeave={(startState) => this._setStateForMovie(startState)}
-            key={movieTitle}
-          />
-        ))}
+        {movies.map(({title, poster, genre, year, preview}, i) => {
+          return (
+            <MovieCard
+              title={title}
+              poster={poster}
+              preview={preview}
+              isPlaying={i === this.state.activeCardIndex}
+              onMovieCardClick={() => {
+                onMovieCardClick({title, poster, genre, year});
+                if (this._timerId) {
+                  clearTimeout(this._timerId);
+                }
+              }}
+              onMovieCardMouseEnter={() => {
+                this._timerId = setTimeout(() => this._setStateForMovie(title, i), VIDEO_START_SETTIMEOUT);
+              }}
+              onMovieCardMouseLeave={() => {
+                this._setStateForMovie(null, -1);
+                clearTimeout(this._timerId);
+              }}
+              key={title}
+            />
+          );
+        })}
       </div>
     );
   }
@@ -42,15 +59,15 @@ class Movies extends PureComponent {
 
 Movies.propTypes = {
   movies: PropTypes.arrayOf(
-      PropTypes.shape({
+      PropTypes.exact({
         title: PropTypes.string.isRequired,
         poster: PropTypes.string.isRequired,
         genre: PropTypes.string.isRequired,
         year: PropTypes.string.isRequired,
+        preview: PropTypes.string.isRequired,
       }).isRequired
   ).isRequired,
-  onMovieCardAnchorClick: PropTypes.func.isRequired,
-  onMovieCardImageClick: PropTypes.func.isRequired,
+  onMovieCardClick: PropTypes.func.isRequired,
 };
 
 export default Movies;
