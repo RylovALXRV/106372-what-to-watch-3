@@ -266,10 +266,8 @@ Array [
             className="small-movie-card__image"
             onClick={[Function]}
           >
-            <img
-              alt="Fantastic Beasts: The Crimes of Grindelwald"
+            <video
               height="175"
-              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
               width="280"
             />
           </div>
@@ -294,10 +292,8 @@ Array [
             className="small-movie-card__image"
             onClick={[Function]}
           >
-            <img
-              alt="Bohemian Rhapsody"
+            <video
               height="175"
-              src="img/bohemian-rhapsody.jpg"
               width="280"
             />
           </div>
@@ -322,10 +318,8 @@ Array [
             className="small-movie-card__image"
             onClick={[Function]}
           >
-            <img
-              alt="Macbeth"
+            <video
               height="175"
-              src="img/macbeth.jpg"
               width="280"
             />
           </div>
@@ -350,10 +344,8 @@ Array [
             className="small-movie-card__image"
             onClick={[Function]}
           >
-            <img
-              alt="Aviator"
+            <video
               height="175"
-              src="img/aviator.jpg"
               width="280"
             />
           </div>

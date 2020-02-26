@@ -7,7 +7,7 @@ const MovieCardFeature = {
   POSTER: `johnny-english.jpg`,
   GENRE: `action`,
   YEAR: `2003`,
-  PREVIEW: ``,
+  PREVIEW: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
 };
 
 it(`Should MovieCard render correctly`, () => {
@@ -18,12 +18,16 @@ it(`Should MovieCard render correctly`, () => {
         genre={MovieCardFeature.GENRE}
         year={MovieCardFeature.YEAR}
         preview={MovieCardFeature.PREVIEW}
-        isPlaying={false}
+        isPlaying={true}
         onMovieCardAnchorClick={() => {}}
         onMovieCardImageClick={() => {}}
         onMovieCardMouseEnter={() => {}}
         onMovieCardMouseLeave={() => {}}
-      />
+      />, {
+        createNodeMock: () => {
+          return {};
+        }
+      }
   ).toJSON();
 
   expect(tree).toMatchSnapshot();

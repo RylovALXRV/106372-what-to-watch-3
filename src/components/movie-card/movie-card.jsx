@@ -2,27 +2,35 @@ import React from "react";
 import PropTypes from "prop-types";
 import VideoPlayer from "../video-player/video-player.jsx";
 
+const VIDEO_START_SETTIMEOUT = 1000;
+
 const MovieCard = ({title, poster, genre, year, preview, onMovieCardAnchorClick,
   onMovieCardImageClick, onMovieCardMouseEnter, onMovieCardMouseLeave, isPlaying}) => {
+  // перенес setTimeout сюда, но работает не так как надо вроде как
+  // убрал тег <img />
+  // оставил только <video />, в задании не понял как правильно все-таки надо
+  let timerId = null;
 
   return (
     <article className="small-movie-card catalog__movies-card"
-      onMouseEnter={() => onMovieCardMouseEnter(title)}
-      onMouseLeave={() => onMovieCardMouseLeave(null)}
+      onMouseEnter={() => {
+        timerId = setTimeout(() => onMovieCardMouseEnter(title), VIDEO_START_SETTIMEOUT);
+      }}
+      onMouseLeave={() => {
+        onMovieCardMouseLeave(null);
+        clearTimeout(timerId);
+      }}
     >
       <div className="small-movie-card__image"
         onClick={() => {
           onMovieCardImageClick({title, poster, genre, year});
         }}>
-        {isPlaying ?
-          <VideoPlayer
-            isPlaying={isPlaying}
-            preview={preview}
-            title={title}
-            poster={poster}
-          /> :
-          <img src={`img/${poster}`} alt={title} width="280" height="175" />
-        }
+        <VideoPlayer
+          isPlaying={isPlaying}
+          preview={preview}
+          title={title}
+          poster={poster}
+        />
       </div>
       <h3 className="small-movie-card__title">
         <a

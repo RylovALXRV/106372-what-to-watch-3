@@ -32,7 +32,7 @@ class Movies extends PureComponent {
               genre={genre}
               year={year}
               preview={preview}
-              isPlaying={(i === this.state.activeCardIndex) || false}
+              isPlaying={i === this.state.activeCardIndex}
               onMovieCardAnchorClick={onMovieCardAnchorClick}
               onMovieCardImageClick={onMovieCardImageClick}
               onMovieCardMouseEnter={(movieCardTitle) => {
