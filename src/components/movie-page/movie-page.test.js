@@ -3,42 +3,49 @@ import renderer from "react-test-renderer";
 import MoviePage from "./movie-page";
 
 const movieCard = {
-  title: ``,
-  poster: ``,
-  genre: ``,
-  year: ``,
+  title: `Fantastic Beasts: The Crimes of Grindelwald`,
+  poster: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+  genre: `fantasy`,
+  year: `2018`,
+  director: `Bryan Singer`,
+  starring: [`Eddie Redmayne`, `Katherine Waterston`],
+  duration: `1h 20m`,
+  reviews: [{
+    text: `The mannered, madcap proceedings are often delightful, occasionally silly, and↵      here and there, gruesome and/or heartbreaking.`,
+    rating: 8.0,
+    author: `Kate Muir`,
+    date: `March 15, 2019`
+  }],
+  descriptions: [`In late 1823, Hugh Glass guides Captain Andrew Hen…ers through territory of the present day Dakotas.`],
+  rating: 6.5,
 };
 
-const filmFeature = {
-  TITLES: [`Fantastic Beasts: The Crimes of Grindelwald`, `Bohemian Rhapsody`,
-    `Macbeth`, `Aviator`, `We need to talk about Kevin`, `What We Do in the Shadows`,
-    `Revenant`, `Johnny English`],
-  POSTERS: [`fantastic-beasts-the-crimes-of-grindelwald.jpg`, `bohemian-rhapsody.jpg`,
-    `macbeth.jpg`, `aviator.jpg`, `we-need-to-talk-about-kevin.jpg`, `what-we-do-in-the-shadows.jpg`,
-    `revenant.jpg`, `johnny-english.jpg`],
-  GENRES: [`fantasy`, `drama`, `military`, `drama`, `drama`, `horror`, `thriller`,
-    `action`],
-  YEARS: [`2018`, `2019`, `1971`, `2004`, `2011`, `2015`, `2015`, `2003`],
-  PREVIEW: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,
-};
-
-const generateFilms = () => {
-  return filmFeature.TITLES.map((title, i) => {
-    return {
-      title,
-      poster: filmFeature.POSTERS[i],
-      genre: filmFeature.GENRES[i],
-      year: filmFeature.YEARS[i],
-      preview: filmFeature.PREVIEW,
-    };
-  });
-};
+const mock = [
+  {
+    title: `Bohemian Rhapsody`,
+    poster: `bohemian-rhapsody.jpg`,
+    genre: `drama`,
+    year: `2019`,
+    preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    director: `Bryan Singer`,
+    starring: [`Eddie Redmayne`, `Katherine Waterston`],
+    duration: `2h 15m`,
+    reviews: [{
+      text: `The mannered, madcap proceedings are often delightful, occasionally silly, and↵      here and there, gruesome and/or heartbreaking.`,
+      rating: 8.0,
+      author: `Kate Muir`,
+      date: `March 15, 2019`
+    }],
+    descriptions: [`In late 1823, Hugh Glass guides Captain Andrew Hen…ers through territory of the present day Dakotas.`],
+    rating: 8.0,
+  }
+];
 
 it(`Should MoviePage render correctly`, () => {
   const tree = renderer.create(
       <MoviePage
         card={movieCard}
-        movies={generateFilms()}
+        movies={mock}
         onMovieCardClick={() => {}}
       />, {
         createNodeMock: () => {
