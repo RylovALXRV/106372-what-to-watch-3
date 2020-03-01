@@ -28,7 +28,7 @@ class Movies extends PureComponent {
 
     return (
       <div className="catalog__movies-list">
-        {movies.map(({title, poster, genre, year, preview}, i) => {
+        {movies.map(({title, poster, genre, year, preview, director, starring, duration, reviews, descriptions, rating}, i) => {
           return (
             <MovieCard
               title={title}
@@ -36,10 +36,8 @@ class Movies extends PureComponent {
               preview={preview}
               isPlaying={i === this.state.activeCardIndex}
               onMovieCardClick={() => {
-                onMovieCardClick({title, poster, genre, year});
-                if (this._timerId) {
-                  clearTimeout(this._timerId);
-                }
+                onMovieCardClick({title, poster, genre, year, director, starring, duration, reviews, descriptions, rating});
+                clearTimeout(this._timerId);
               }}
               onMovieCardMouseEnter={() => {
                 this._timerId = setTimeout(() => this._setStateForMovie(title, i), VIDEO_START_SETTIMEOUT);
@@ -65,7 +63,24 @@ Movies.propTypes = {
         genre: PropTypes.string.isRequired,
         year: PropTypes.string.isRequired,
         preview: PropTypes.string.isRequired,
-      }).isRequired
+        director: PropTypes.string.isRequired,
+        starring: PropTypes.arrayOf(
+            PropTypes.string.isRequired
+        ).isRequired,
+        duration: PropTypes.string.isRequired,
+        reviews: PropTypes.arrayOf(
+            PropTypes.exact({
+              text: PropTypes.string.isRequired,
+              rating: PropTypes.number.isRequired,
+              author: PropTypes.string.isRequired,
+              date: PropTypes.string.isRequired,
+            }).isRequired
+        ).isRequired,
+        descriptions: PropTypes.arrayOf(
+            PropTypes.string.isRequired
+        ).isRequired,
+        rating: PropTypes.number.isRequired,
+      })
   ).isRequired,
   onMovieCardClick: PropTypes.func.isRequired,
 };

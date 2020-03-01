@@ -56,6 +56,7 @@ class App extends PureComponent {
             <MoviePage
               card={this.props.movies[0]}
               movies={films}
+              onMovieCardClick={() => {}}
             />
           </Route>
         </Switch>
@@ -69,10 +70,30 @@ App.propTypes = {
   genre: PropTypes.string.isRequired,
   year: PropTypes.number.isRequired,
   movies: PropTypes.arrayOf(
-      PropTypes.shape({
+      PropTypes.exact({
         title: PropTypes.string.isRequired,
-        poster: PropTypes.string.isRequired
-      }).isRequired
+        poster: PropTypes.string.isRequired,
+        genre: PropTypes.string.isRequired,
+        year: PropTypes.string.isRequired,
+        preview: PropTypes.string.isRequired,
+        director: PropTypes.string.isRequired,
+        starring: PropTypes.arrayOf(
+            PropTypes.string.isRequired
+        ).isRequired,
+        duration: PropTypes.string.isRequired,
+        reviews: PropTypes.arrayOf(
+            PropTypes.exact({
+              text: PropTypes.string.isRequired,
+              rating: PropTypes.number.isRequired,
+              author: PropTypes.string.isRequired,
+              date: PropTypes.string.isRequired,
+            }).isRequired
+        ).isRequired,
+        descriptions: PropTypes.arrayOf(
+            PropTypes.string.isRequired
+        ).isRequired,
+        rating: PropTypes.number.isRequired,
+      })
   ).isRequired,
 };
 
