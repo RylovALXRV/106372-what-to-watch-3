@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
-import films from "../../mocks/films";
+import {connect} from "react-redux";
 
 class App extends PureComponent {
   constructor(props) {
@@ -46,6 +46,8 @@ class App extends PureComponent {
   }
 
   render() {
+    const {movies} = this.props;
+
     return (
       <BrowserRouter>
         <Switch>
@@ -55,7 +57,7 @@ class App extends PureComponent {
           <Route exact path="/movie-page">
             <MoviePage
               card={this.props.movies[0]}
-              movies={films}
+              movies={movies}
               onMovieCardClick={() => {}}
             />
           </Route>
@@ -89,12 +91,15 @@ App.propTypes = {
               date: PropTypes.string.isRequired,
             }).isRequired
         ).isRequired,
-        descriptions: PropTypes.arrayOf(
-            PropTypes.string.isRequired
-        ).isRequired,
+        descriptions: PropTypes.string.isRequired,
         rating: PropTypes.number.isRequired,
       })
   ).isRequired,
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  movies: state.movies,
+});
+
+export {App};
+export default connect(mapStateToProps)(App);

@@ -28,7 +28,7 @@ exports[`Should Reviews render correctly 1`] = `
           </cite>
           <time
             className="review__date"
-            dateTime="2016-12-24"
+            dateTime="2016-12-20"
           >
             December 20, 2016
           </time>
@@ -43,40 +43,6 @@ exports[`Should Reviews render correctly 1`] = `
   </div>
   <div
     className="movie-card__reviews-col"
-  >
-    <div
-      className="review"
-    >
-      <blockquote
-        className="review__quote"
-      >
-        <p
-          className="review__text"
-        >
-          It is certainly a magical and childlike way of storytelling, even if the content is a little more adult.
-        </p>
-        <footer
-          className="review__details"
-        >
-          <cite
-            className="review__author"
-          >
-            Kate Muir
-          </cite>
-          <time
-            className="review__date"
-            dateTime="2016-12-24"
-          >
-            December 20, 2016
-          </time>
-        </footer>
-      </blockquote>
-      <div
-        className="review__rating"
-      >
-        8
-      </div>
-    </div>
-  </div>
+  />
 </div>
 `;

@@ -3,20 +3,24 @@ import renderer from "react-test-renderer";
 import Overview from "./overview.jsx";
 
 const mock = {
-  descriptions: [`In late 1823, Hugh Glass guides Captain Andrew Henry's trappers through territory of the present day Dakotas.`],
-  rating: 8.0,
   director: `David Yates`,
   starring: [`Rami Malek`, `Jon Finch`, `Cate Blanchett`],
+  duration: `1h 30m`,
+  genre: `drama`,
+  year: `2018`,
+  reviews: [{
+    text: `It is certainly a magical and childlike way of storytelling, even if the content is a little more adult.`,
+    rating: 8.0,
+    author: `Kate Muir`,
+    date: `December 20, 2016`,
+  }],
+  descriptions: `In late 1823, Hugh Glass guides Captain Andrew Henry's trappers through territory of the present day Dakotas.`,
+  rating: 8.0,
 };
 
 it(`Should Overview render correctly`, () => {
-  const {descriptions, rating, director, starring} = mock;
   const tree = renderer.create(
-      <Overview
-        rating={rating}
-        descriptions={descriptions}
-        starring={starring}
-        director={director}
+      <Overview movie={mock}
       />
   ).toJSON();
 

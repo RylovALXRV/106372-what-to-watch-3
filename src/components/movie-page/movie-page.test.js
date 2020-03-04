@@ -16,7 +16,7 @@ const movieCard = {
     author: `Kate Muir`,
     date: `March 15, 2019`
   }],
-  descriptions: [`In late 1823, Hugh Glass guides Captain Andrew Hen…ers through territory of the present day Dakotas.`],
+  descriptions: `In late 1823, Hugh Glass guides Captain Andrew Hen…ers through territory of the present day Dakotas.`,
   rating: 6.5,
 };
 
@@ -36,7 +36,7 @@ const mock = [
       author: `Kate Muir`,
       date: `March 15, 2019`
     }],
-    descriptions: [`In late 1823, Hugh Glass guides Captain Andrew Hen…ers through territory of the present day Dakotas.`],
+    descriptions: `In late 1823, Hugh Glass guides Captain Andrew Hen…ers through territory of the present day Dakotas.`,
     rating: 8.0,
   }
 ];

@@ -1,10 +1,12 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Main from "./main";
+import Main from "./main.jsx";
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
 
 const MovieCard = {
   TITLE: `Moon`,
-  GENRE: `fantasy`,
+  GENRE: `Crime`,
   YEAR: 2009
 };
 
@@ -24,20 +26,29 @@ const mock = [
       author: `Kate Muir`,
       date: `March 15, 2019`
     }],
-    descriptions: [`In late 1823, Hugh Glass guides Captain Andrew Hen…ers through territory of the present day Dakotas.`],
+    descriptions: `In late 1823, Hugh Glass guides Captain Andrew Hen…ers through territory of the present day Dakotas.`,
     rating: 8.0,
   }
 ];
 
+const mockStore = configureStore([]);
+
 it(`Should Main render correctly`, () => {
+  const store = mockStore({
+    currentGenre: `All`,
+    activeGenreLinkId: 2,
+  });
+
   const tree = renderer.create(
-      <Main
-        title={MovieCard.TITLE}
-        genre={MovieCard.GENRE}
-        year={MovieCard.YEAR}
-        movies={mock}
-        onMovieCardClick={() => {}}
-      />, {
+      <Provider store={store}>
+        <Main
+          title={MovieCard.TITLE}
+          genre={MovieCard.GENRE}
+          year={MovieCard.YEAR}
+          movies={mock}
+          onMovieCardClick={() => {}}
+        />
+      </Provider>, {
         createNodeMock: () => {
           return {};
         }

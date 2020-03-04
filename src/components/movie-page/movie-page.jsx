@@ -114,7 +114,7 @@ MoviePage.propTypes = {
           date: PropTypes.string.isRequired,
         }).isRequired
     ).isRequired,
-    descriptions: PropTypes.array.isRequired,
+    descriptions: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
   }).isRequired,
   movies: PropTypes.arrayOf(
@@ -137,9 +137,7 @@ MoviePage.propTypes = {
               date: PropTypes.string.isRequired,
             }).isRequired
         ).isRequired,
-        descriptions: PropTypes.arrayOf(
-            PropTypes.string.isRequired
-        ).isRequired,
+        descriptions: PropTypes.string.isRequired,
         rating: PropTypes.number.isRequired,
       })
   ).isRequired,

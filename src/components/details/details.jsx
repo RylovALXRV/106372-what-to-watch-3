@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Details = ({director, starring, duration, genre, year}) => {
+const Details = ({movie}) => {
+  const {director, starring, duration, genre, year} = movie;
+
   return (
     <div className="movie-card__text movie-card__row">
       <div className="movie-card__text-col">
@@ -36,13 +38,25 @@ const Details = ({director, starring, duration, genre, year}) => {
 };
 
 Details.propTypes = {
-  director: PropTypes.string.isRequired,
-  duration: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
-  year: PropTypes.string.isRequired,
-  starring: PropTypes.arrayOf(
-      PropTypes.string.isRequired
-  ).isRequired,
+  movie: PropTypes.exact({
+    descriptions: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
+    director: PropTypes.string.isRequired,
+    starring: PropTypes.arrayOf(
+        PropTypes.string.isRequired
+    ).isRequired,
+    duration: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    year: PropTypes.string.isRequired,
+    reviews: PropTypes.arrayOf(
+        PropTypes.exact({
+          text: PropTypes.string.isRequired,
+          rating: PropTypes.number.isRequired,
+          author: PropTypes.string.isRequired,
+          date: PropTypes.string.isRequired,
+        }).isRequired
+    ).isRequired,
+  }).isRequired,
 };
 
 export default Details;

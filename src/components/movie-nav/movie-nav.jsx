@@ -4,16 +4,12 @@ import Overview from "../overview/overview.jsx";
 import Details from "../details/details.jsx";
 import Reviews from "../reviews/reviews.jsx";
 
-const MovieNavLink = {
-  OVERVIEW: `Overview`,
-  DETAILS: `Details`,
-  REVIEWS: `Reviews`,
-};
+const MovieNavLink = [Overview, Details, Reviews];
 
 const MOVIE_NAV_LINKS = [
-  MovieNavLink.OVERVIEW,
-  MovieNavLink.DETAILS,
-  MovieNavLink.REVIEWS,
+  `Overview`,
+  `Details`,
+  `Reviews`,
 ];
 
 class MovieNav extends PureComponent {
@@ -25,39 +21,10 @@ class MovieNav extends PureComponent {
     };
   }
 
-  _renderMovieDescription(index) {
-    const {director, starring, duration, genre, year, reviews, descriptions, rating} = this.props;
-    switch (index) {
-      case 0:
-        return (
-          <Overview
-            descriptions={descriptions}
-            rating={rating}
-            director={director}
-            starring={starring}
-          />
-        );
-      case 1:
-        return (
-          <Details
-            director={director}
-            starring={starring}
-            duration={duration}
-            genre={genre}
-            year={year}
-          />
-        );
-      case 2:
-        return (
-          <Reviews
-            reviews={reviews}
-          />
-        );
-    }
+  _renderMovieDescription() {
+    const Component = MovieNavLink[this.state.activeNavLinkId];
 
-    return (
-      <h2>Ошибка, нет такой вкладки</h2>
-    );
+    return <Component movie={this.props} />;
   }
 
   render() {
@@ -84,7 +51,7 @@ class MovieNav extends PureComponent {
             ))}
           </ul>
         </nav>
-        {this._renderMovieDescription(this.state.activeNavLinkId)}
+        {this._renderMovieDescription()}
       </Fragment>
     );
   }
@@ -106,9 +73,7 @@ MovieNav.propTypes = {
         date: PropTypes.string.isRequired,
       }).isRequired
   ).isRequired,
-  descriptions: PropTypes.arrayOf(
-      PropTypes.string.isRequired
-  ).isRequired,
+  descriptions: PropTypes.string.isRequired,
   rating: PropTypes.number.isRequired,
 };
 

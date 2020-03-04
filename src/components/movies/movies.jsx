@@ -28,7 +28,9 @@ class Movies extends PureComponent {
 
     return (
       <div className="catalog__movies-list">
-        {movies.map(({title, poster, genre, year, preview, director, starring, duration, reviews, descriptions, rating}, i) => {
+        {movies.map((movie, i) => {
+          const {title, poster, preview} = movie;
+
           return (
             <MovieCard
               title={title}
@@ -36,7 +38,7 @@ class Movies extends PureComponent {
               preview={preview}
               isPlaying={i === this.state.activeCardIndex}
               onMovieCardClick={() => {
-                onMovieCardClick({title, poster, genre, year, director, starring, duration, reviews, descriptions, rating});
+                onMovieCardClick(movie);
                 clearTimeout(this._timerId);
               }}
               onMovieCardMouseEnter={() => {
@@ -76,9 +78,7 @@ Movies.propTypes = {
               date: PropTypes.string.isRequired,
             }).isRequired
         ).isRequired,
-        descriptions: PropTypes.arrayOf(
-            PropTypes.string.isRequired
-        ).isRequired,
+        descriptions: PropTypes.string.isRequired,
         rating: PropTypes.number.isRequired,
       })
   ).isRequired,
