@@ -1,12 +1,16 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import App from "./app";
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
+import {App} from "./app.jsx";
 
 const MovieCard = {
   TITLE: `Moon`,
   GENRE: `fantasy`,
   YEAR: 2009
 };
+
+const mockStore = configureStore([]);
 
 const mock = [
   {
@@ -19,24 +23,31 @@ const mock = [
     starring: [`Eddie Redmayne`, `Katherine Waterston`],
     duration: `2h 15m`,
     reviews: [{
-      text: `The mannered, madcap proceedings are often delightful, occasionally silly, and↵      here and there, gruesome and/or heartbreaking.`,
+      text: `The mannered, madcap proceedings are often delightful, occasionally silly, and here and there, gruesome and/or heartbreaking.`,
       rating: 8.0,
       author: `Kate Muir`,
       date: `March 15, 2019`
     }],
-    descriptions: [`In late 1823, Hugh Glass guides Captain Andrew Hen…ers through territory of the present day Dakotas.`],
+    descriptions: `In late 1823, Hugh Glass guides Captain Andrew Hen…ers through territory of the present day Dakotas.`,
     rating: 8.0,
   }
 ];
 
 it(`Render App`, () => {
+  const store = mockStore({
+    currentGenre: `All`,
+    activeGenreLinkId: 0,
+  });
+
   const tree = renderer.create(
-      <App
-        title={MovieCard.TITLE}
-        genre={MovieCard.GENRE}
-        year={MovieCard.YEAR}
-        movies={mock}
-      />, {
+      <Provider store={store}>
+        <App
+          title={MovieCard.TITLE}
+          genre={MovieCard.GENRE}
+          year={MovieCard.YEAR}
+          movies={mock}
+        />
+      </Provider>, {
         createNodeMock: () => {
           return {};
         }

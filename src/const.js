@@ -3,4 +3,30 @@ const MovieCardIndex = {
   END: 4,
 };
 
-export {MovieCardIndex};
+const GENRES = [
+  `All`,
+  `Comedy`,
+  `Crime`,
+  `Documentary`,
+  `Drama`,
+  `Horror`,
+  `KidsAndFamily`,
+  `Romance`,
+  `Sci-Fi`,
+  `Thriller`
+];
+
+const GENRE_LINKS = [
+  `All genres`,
+  `Comedies`,
+  `Crime`,
+  `Documentary`,
+  `Dramas`,
+  `Horror`,
+  `Kids & Family`,
+  `Romance`,
+  `Sci-Fi`,
+  `Thrillers`
+];
+
+export {MovieCardIndex, GENRE_LINKS, GENRES};

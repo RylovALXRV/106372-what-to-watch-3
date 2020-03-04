@@ -1,10 +1,10 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Main from "./main";
+import Main from "./main.jsx";
 
 const MovieCard = {
   TITLE: `Moon`,
-  GENRE: `fantasy`,
+  GENRE: `Crime`,
   YEAR: 2009
 };
 
@@ -24,7 +24,7 @@ const mock = [
       author: `Kate Muir`,
       date: `March 15, 2019`
     }],
-    descriptions: [`In late 1823, Hugh Glass guides Captain Andrew Hen…ers through territory of the present day Dakotas.`],
+    descriptions: `In late 1823, Hugh Glass guides Captain Andrew Hen…ers through territory of the present day Dakotas.`,
     rating: 8.0,
   }
 ];

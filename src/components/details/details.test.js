@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import MovieNav from "./movie-nav.jsx";
+import Details from "./details.jsx";
 
 const mock = {
   director: `David Yates`,
@@ -18,19 +18,9 @@ const mock = {
   rating: 8.0,
 };
 
-it(`Should MovieNav render correctly`, () => {
-  const {director, starring, duration, genre, year, reviews, descriptions, rating} = mock;
+it(`Should Details render correctly`, () => {
   const tree = renderer.create(
-      <MovieNav
-        genre={genre}
-        year={year}
-        director={director}
-        duration={duration}
-        starring={starring}
-        reviews={reviews}
-        descriptions={descriptions}
-        rating={rating}
-      />
+      <Details movie={mock} />
   ).toJSON();
 
   expect(tree).toMatchSnapshot();

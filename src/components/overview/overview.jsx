@@ -1,7 +1,9 @@
 import React, {Fragment} from "react";
 import PropTypes from "prop-types";
 
-const Overview = ({descriptions, rating, director, starring}) => {
+const Overview = ({movie}) => {
+  const {descriptions, rating, director, starring} = movie;
+
   return (
     <Fragment>
       <div className="movie-rating">
@@ -13,11 +15,7 @@ const Overview = ({descriptions, rating, director, starring}) => {
       </div>
 
       <div className="movie-card__text">
-        {descriptions.map((description) => (
-          <p
-            key={description}
-          >{description}</p>
-        ))}
+        <p>{descriptions}</p>
         <p className="movie-card__director"><strong>Director: {director}</strong></p>
 
         <p className="movie-card__starring"><strong>Starring: {starring.join(`, `)} and other</strong></p>
@@ -27,14 +25,25 @@ const Overview = ({descriptions, rating, director, starring}) => {
 };
 
 Overview.propTypes = {
-  descriptions: PropTypes.arrayOf(
-      PropTypes.string.isRequired
-  ).isRequired,
-  rating: PropTypes.number.isRequired,
-  director: PropTypes.string.isRequired,
-  starring: PropTypes.arrayOf(
-      PropTypes.string.isRequired
-  ).isRequired,
+  movie: PropTypes.exact({
+    descriptions: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
+    director: PropTypes.string.isRequired,
+    starring: PropTypes.arrayOf(
+        PropTypes.string.isRequired
+    ).isRequired,
+    duration: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    year: PropTypes.string.isRequired,
+    reviews: PropTypes.arrayOf(
+        PropTypes.exact({
+          text: PropTypes.string.isRequired,
+          rating: PropTypes.number.isRequired,
+          author: PropTypes.string.isRequired,
+          date: PropTypes.string.isRequired,
+        }).isRequired
+    ).isRequired,
+  }).isRequired,
 };
 
 export default Overview;

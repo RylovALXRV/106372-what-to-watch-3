@@ -2,7 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import Review from "../review/review.jsx";
 
-const Reviews = ({reviews}) => {
+const Reviews = ({movie}) => {
+  const {reviews} = movie;
+
   const reviewsHalf = Math.round(reviews.length / 2);
 
   return (
@@ -43,14 +45,25 @@ const Reviews = ({reviews}) => {
 };
 
 Reviews.propTypes = {
-  reviews: PropTypes.arrayOf(
-      PropTypes.exact({
-        text: PropTypes.string.isRequired,
-        rating: PropTypes.number.isRequired,
-        author: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
-      }).isRequired
-  ).isRequired,
+  movie: PropTypes.exact({
+    descriptions: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
+    director: PropTypes.string.isRequired,
+    starring: PropTypes.arrayOf(
+        PropTypes.string.isRequired
+    ).isRequired,
+    duration: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    year: PropTypes.string.isRequired,
+    reviews: PropTypes.arrayOf(
+        PropTypes.exact({
+          text: PropTypes.string.isRequired,
+          rating: PropTypes.number.isRequired,
+          author: PropTypes.string.isRequired,
+          date: PropTypes.string.isRequired,
+        }).isRequired
+    ).isRequired,
+  }).isRequired,
 };
 
 export default Reviews;
