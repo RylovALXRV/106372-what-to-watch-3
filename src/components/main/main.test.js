@@ -1,6 +1,8 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import Main from "./main.jsx";
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
 
 const MovieCard = {
   TITLE: `Moon`,
@@ -29,15 +31,24 @@ const mock = [
   }
 ];
 
+const mockStore = configureStore([]);
+
 it(`Should Main render correctly`, () => {
+  const store = mockStore({
+    currentGenre: `All`,
+    activeGenreLinkId: 2,
+  });
+
   const tree = renderer.create(
-      <Main
-        title={MovieCard.TITLE}
-        genre={MovieCard.GENRE}
-        year={MovieCard.YEAR}
-        movies={mock}
-        onMovieCardClick={() => {}}
-      />, {
+      <Provider store={store}>
+        <Main
+          title={MovieCard.TITLE}
+          genre={MovieCard.GENRE}
+          year={MovieCard.YEAR}
+          movies={mock}
+          onMovieCardClick={() => {}}
+        />
+      </Provider>, {
         createNodeMock: () => {
           return {};
         }
