@@ -1,61 +1,43 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import MovieCard from "../movie-card/movie-card.jsx";
+import {connect} from "react-redux";
+import {ActionCreator} from "../../reducer";
+import {MovieCardIndex} from "../../const";
 
 const VIDEO_START_SETTIMEOUT = 1000;
+let timerId = null;
 
-class Movies extends PureComponent {
-  constructor(props) {
-    super(props);
+const Movies = ({movies, onMovieCardClick, onMovieCardMouse, activeCardIndex, amountCards}) => {
+  return (
+    <div className="catalog__movies-list">
+      {movies.slice(MovieCardIndex.START, amountCards).map((movie, i) => {
+        const {title, poster, preview} = movie;
 
-    this._timerId = null;
-
-    this.state = {
-      activeCard: null,
-      activeCardIndex: -1,
-    };
-  }
-
-  _setStateForMovie(state, index) {
-    this.setState({
-      activeCard: state,
-      activeCardIndex: index,
-    });
-  }
-
-  render() {
-    const {movies, onMovieCardClick} = this.props;
-
-    return (
-      <div className="catalog__movies-list">
-        {movies.map((movie, i) => {
-          const {title, poster, preview} = movie;
-
-          return (
-            <MovieCard
-              title={title}
-              poster={poster}
-              preview={preview}
-              isPlaying={i === this.state.activeCardIndex}
-              onMovieCardClick={() => {
-                onMovieCardClick(movie);
-                clearTimeout(this._timerId);
-              }}
-              onMovieCardMouseEnter={() => {
-                this._timerId = setTimeout(() => this._setStateForMovie(title, i), VIDEO_START_SETTIMEOUT);
-              }}
-              onMovieCardMouseLeave={() => {
-                this._setStateForMovie(null, -1);
-                clearTimeout(this._timerId);
-              }}
-              key={title}
-            />
-          );
-        })}
-      </div>
-    );
-  }
-}
+        return (
+          <MovieCard
+            title={title}
+            poster={poster}
+            preview={preview}
+            isPlaying={i === activeCardIndex}
+            onMovieCardClick={() => {
+              onMovieCardClick(movie);
+              clearTimeout(timerId);
+            }}
+            onMovieCardMouseEnter={() => {
+              timerId = setTimeout(() => onMovieCardMouse(i), VIDEO_START_SETTIMEOUT);
+            }}
+            onMovieCardMouseLeave={() => {
+              onMovieCardMouse(-1);
+              clearTimeout(timerId);
+            }}
+            key={`${title}-${i}`}
+          />
+        );
+      })}
+    </div>
+  );
+};
 
 Movies.propTypes = {
   movies: PropTypes.arrayOf(
@@ -63,7 +45,7 @@ Movies.propTypes = {
         title: PropTypes.string.isRequired,
         poster: PropTypes.string.isRequired,
         genre: PropTypes.string.isRequired,
-        year: PropTypes.string.isRequired,
+        year: PropTypes.number.isRequired,
         preview: PropTypes.string.isRequired,
         director: PropTypes.string.isRequired,
         starring: PropTypes.arrayOf(
@@ -83,6 +65,21 @@ Movies.propTypes = {
       })
   ).isRequired,
   onMovieCardClick: PropTypes.func.isRequired,
+  onMovieCardMouse: PropTypes.func.isRequired,
+  activeCardIndex: PropTypes.number.isRequired,
+  amountCards: PropTypes.number.isRequired,
 };
 
-export default Movies;
+const mapStateToProps = (state) => ({
+  activeCardIndex: state.activeCardIndex,
+  amountCards: state.amountCards,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onMovieCardMouse(index) {
+    dispatch(ActionCreator.changeActiveCardIndex(index));
+  },
+});
+
+export {Movies};
+export default connect(mapStateToProps, mapDispatchToProps)(Movies);

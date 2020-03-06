@@ -1,26 +1,25 @@
 import React from "react";
-import {GENRE_LINKS, GENRES} from "../../const";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer";
 import PropTypes from "prop-types";
+import {generateGenresList} from "../../mocks/movies";
 
-const GenresList = ({onGenreLinkClick, activeGenreLinkId}) => {
+const GenresList = ({onGenreLinkClick, currentGenre}) => {
   return (
     <ul className="catalog__genres-list">
-      {GENRE_LINKS.map((genreLink, i) => (
+      {generateGenresList().map((genre) => (
         <li
-          className={`catalog__genres-item ${i === activeGenreLinkId ? `catalog__genres-item--active` : ``}`}
-          key={genreLink}
+          className={`catalog__genres-item ${genre === currentGenre ? `catalog__genres-item--active` : ``}`}
+          key={genre}
         >
           <a
             href="#"
             className="catalog__genres-link"
-            data-genre={GENRES[i]}
             onClick={(evt) => {
               evt.preventDefault();
-              onGenreLinkClick(evt.target.dataset.genre, i);
+              onGenreLinkClick(genre);
             }}
-          >{genreLink}</a>
+          >{genre}</a>
         </li>
       ))}
     </ul>
@@ -29,18 +28,15 @@ const GenresList = ({onGenreLinkClick, activeGenreLinkId}) => {
 
 GenresList.propTypes = {
   onGenreLinkClick: PropTypes.func.isRequired,
-  activeGenreLinkId: PropTypes.number.isRequired,
+  currentGenre: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  movies: state.movies,
   currentGenre: state.currentGenre,
-  activeGenreLinkId: state.activeGenreLinkId,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onGenreLinkClick(genre, index) {
-    dispatch(ActionCreator.changeActiveGenreLink(index));
+  onGenreLinkClick(genre) {
     dispatch(ActionCreator.changeGenre(genre));
     dispatch(ActionCreator.filterMovies(genre));
   }

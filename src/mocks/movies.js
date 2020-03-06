@@ -5,9 +5,8 @@ const filmFeature = {
   POSTERS: [`fantastic-beasts-the-crimes-of-grindelwald.jpg`, `bohemian-rhapsody.jpg`,
     `macbeth.jpg`, `aviator.jpg`, `we-need-to-talk-about-kevin.jpg`, `what-we-do-in-the-shadows.jpg`,
     `revenant.jpg`, `johnny-english.jpg`],
-  GENRES: [`Crime`, `Drama`, `Romance`, `Horror`, `Sci-Fi`, `Comedy`, `Thriller`,
-    `Documentary`],
-  YEARS: [`2018`, `2019`, `1971`, `2004`, `2011`, `2015`, `2015`, `2003`],
+  GENRES: [`Drama`, `Drama`, `Romance`, `Horror`, `Horror`, `Comedy`, `Thriller`, `Thriller`],
+  YEARS: [2018, 2019, 1971, 2004, 2011, 2015, 2015, 2003],
   PREVIEW: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
   DIRECTORS: [`David Yates`, `Bryan Singer`, `Roman Polanski`, `Martin Scorsese`, `Lynne Ramsay`, `Jemaine Clement`,
     `Alejandro G. Iñárritu`, `Peter Howitt`],
@@ -71,7 +70,7 @@ const generateReviews = () => {
   });
 };
 
-const generateFilms = () => {
+const generateMovies = () => {
   return filmFeature.TITLES.map((title, i) => {
     return {
       title,
@@ -89,4 +88,15 @@ const generateFilms = () => {
   });
 };
 
-export default generateFilms();
+const generateGenresList = () => {
+  const genres = [`All genres`];
+
+  const genresUnique = new Set(generateMovies().map((movie) => {
+    return movie.genre;
+  }));
+
+  return genres.concat(Array.from(genresUnique));
+};
+
+export {generateGenresList};
+export default generateMovies();

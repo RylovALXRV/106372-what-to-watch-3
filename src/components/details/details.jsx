@@ -47,7 +47,7 @@ Details.propTypes = {
     ).isRequired,
     duration: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
-    year: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
     reviews: PropTypes.arrayOf(
         PropTypes.exact({
           text: PropTypes.string.isRequired,
@@ -56,6 +56,9 @@ Details.propTypes = {
           date: PropTypes.string.isRequired,
         }).isRequired
     ).isRequired,
+    title: PropTypes.string.isRequired,
+    poster: PropTypes.string.isRequired,
+    preview: PropTypes.string.isRequired,
   }).isRequired,
 };
 

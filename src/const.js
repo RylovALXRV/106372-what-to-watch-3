@@ -1,32 +1,21 @@
 const MovieCardIndex = {
+  DEFAULT: 8,
   START: 0,
   END: 4,
 };
 
-const GENRES = [
-  `All`,
-  `Comedy`,
-  `Crime`,
-  `Documentary`,
-  `Drama`,
-  `Horror`,
-  `KidsAndFamily`,
-  `Romance`,
-  `Sci-Fi`,
-  `Thriller`
+const MovieNavLink = {
+  OVERVIEW: `Overview`,
+  DETAILS: `Details`,
+  REVIEWS: `Reviews`,
+};
+
+const MOVIE_NAV_LINKS = [
+  MovieNavLink.OVERVIEW,
+  MovieNavLink.DETAILS,
+  MovieNavLink.REVIEWS,
 ];
 
-const GENRE_LINKS = [
-  `All genres`,
-  `Comedies`,
-  `Crime`,
-  `Documentary`,
-  `Dramas`,
-  `Horror`,
-  `Kids & Family`,
-  `Romance`,
-  `Sci-Fi`,
-  `Thrillers`
-];
+const DEFAULT_GENRE = `All genres`;
 
-export {MovieCardIndex, GENRE_LINKS, GENRES};
+export {MovieCardIndex, MOVIE_NAV_LINKS, MovieNavLink, DEFAULT_GENRE};

@@ -1,13 +1,13 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Movies from "./movies";
+import {Movies} from "./movies";
 
 const mock = [
   {
     title: `Bohemian Rhapsody`,
     poster: `bohemian-rhapsody.jpg`,
     genre: `drama`,
-    year: `2019`,
+    year: 2019,
     preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     director: `Bryan Singer`,
     starring: [`Eddie Redmayne`, `Katherine Waterston`],
@@ -28,6 +28,9 @@ it(`Should Movies render correctly`, () => {
       <Movies
         movies={mock}
         onMovieCardClick={() => {}}
+        onMovieCardMouse={() => {}}
+        activeCardIndex={-1}
+        amountCards={8}
       />, {
         createNodeMock: () => {
           return {};

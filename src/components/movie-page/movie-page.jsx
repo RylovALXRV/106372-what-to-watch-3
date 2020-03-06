@@ -4,6 +4,7 @@ import MovieNav from "../movie-nav/movie-nav.jsx";
 import {MovieCardIndex} from "../../const";
 import Header from "../header/header.jsx";
 import Footer from "../footer/footer.jsx";
+import MovieCardDescription from "../movie-card-description/movie-card-description.jsx";
 import Movies from "../movies/movies.jsx";
 
 const filterByGenre = (movies, currentMovieGenre, startIndex, endIndex) => {
@@ -13,7 +14,7 @@ const filterByGenre = (movies, currentMovieGenre, startIndex, endIndex) => {
 };
 
 const MoviePage = ({card, movies, onMovieCardClick}) => {
-  const {title, poster, genre, year, director, starring, duration, reviews, descriptions, rating} = card;
+  const {title, poster, genre, year} = card;
 
   return (
     <Fragment>
@@ -28,50 +29,22 @@ const MoviePage = ({card, movies, onMovieCardClick}) => {
           <Header />
 
           <div className="movie-card__wrap">
-            <div className="movie-card__desc">
-              <h2 className="movie-card__title">{title}</h2>
-              <p className="movie-card__meta">
-                <span className="movie-card__genre">{genre}</span>
-                <span className="movie-card__year">{year}</span>
-              </p>
-
-              <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s" />
-                  </svg>
-                  <span>Play</span>
-                </button>
-                <button className="btn btn--list movie-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add" />
-                  </svg>
-                  <span>My list</span>
-                </button>
-                <a href="add-review.html" className="btn movie-card__button">Add review</a>
-              </div>
-            </div>
+            <MovieCardDescription
+              year={year}
+              genre={genre}
+              title={title}
+            />
           </div>
         </div>
 
         <div className="movie-card__wrap movie-card__translate-top">
           <div className="movie-card__info">
             <div className="movie-card__poster movie-card__poster--big">
-              <img src={`img/${poster}`} alt={title} width="218"
-                height="327"/>
+              <img src={`img/${poster}`} alt={title} width="218" height="327"/>
             </div>
 
             <div className="movie-card__desc">
-              <MovieNav
-                director={director}
-                starring={starring}
-                duration={duration}
-                genre={genre}
-                year={year}
-                reviews={reviews}
-                descriptions={descriptions}
-                rating={rating}
-              />
+              <MovieNav card={card} />
             </div>
           </div>
         </div>
@@ -100,7 +73,7 @@ MoviePage.propTypes = {
     title: PropTypes.string.isRequired,
     poster: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
-    year: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
     director: PropTypes.string.isRequired,
     duration: PropTypes.string.isRequired,
     starring: PropTypes.arrayOf(
@@ -122,7 +95,7 @@ MoviePage.propTypes = {
         title: PropTypes.string.isRequired,
         poster: PropTypes.string.isRequired,
         genre: PropTypes.string.isRequired,
-        year: PropTypes.string.isRequired,
+        year: PropTypes.number.isRequired,
         preview: PropTypes.string.isRequired,
         director: PropTypes.string.isRequired,
         starring: PropTypes.arrayOf(

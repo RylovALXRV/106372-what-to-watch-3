@@ -6,7 +6,7 @@ it(`Should GenreList render correctly`, () => {
   const tree = renderer.create(
       <GenresList
         onGenreLinkClick={() => {}}
-        activeGenreLinkId={1}
+        currentGenre={`All genres`}
       />
   ).toJSON();
 
