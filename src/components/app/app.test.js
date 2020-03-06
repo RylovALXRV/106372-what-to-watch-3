@@ -17,7 +17,7 @@ const mock = [
     title: `Bohemian Rhapsody`,
     poster: `bohemian-rhapsody.jpg`,
     genre: `drama`,
-    year: `2019`,
+    year: 2019,
     preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     director: `Bryan Singer`,
     starring: [`Eddie Redmayne`, `Katherine Waterston`],
@@ -37,6 +37,9 @@ it(`Render App`, () => {
   const store = mockStore({
     currentGenre: `All`,
     activeGenreLinkId: 0,
+    amountCards: 8,
+    activeCardIndex: -1,
+    movieNavLinkIndex: 0,
   });
 
   const tree = renderer.create(
@@ -46,6 +49,7 @@ it(`Render App`, () => {
           genre={MovieCard.GENRE}
           year={MovieCard.YEAR}
           movies={mock}
+          onMovieCardClick={() => {}}
         />
       </Provider>, {
         createNodeMock: () => {

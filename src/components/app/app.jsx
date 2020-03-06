@@ -4,43 +4,29 @@ import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
 import {connect} from "react-redux";
+import {ActionCreator} from "../../reducer";
 
 class App extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      card: false,
-    };
-  }
-
-  _setStateForMovie(movie) {
-    this.setState({
-      card: movie,
-    });
-  }
-
   _renderMovieScreen() {
-    const {title, genre, year, movies} = this.props;
-    const {card} = this.state;
+    const {title, genre, year, movies, onMovieCardClick, currentCard} = this.props;
 
-    if (!card) {
+    if (!currentCard) {
       return (
         <Main
           title={title}
           genre={genre}
           year={year}
           movies={movies}
-          onMovieCardClick={(movie) => this._setStateForMovie(movie)}
+          onMovieCardClick={(movie) => onMovieCardClick(movie)}
         />
       );
     }
 
     return (
       <MoviePage
-        card={card}
+        card={currentCard}
         movies={movies}
-        onMovieCardClick={(movie) => this._setStateForMovie(movie)}
+        onMovieCardClick={(movie) => onMovieCardClick(movie)}
       />
     );
   }
@@ -76,7 +62,7 @@ App.propTypes = {
         title: PropTypes.string.isRequired,
         poster: PropTypes.string.isRequired,
         genre: PropTypes.string.isRequired,
-        year: PropTypes.string.isRequired,
+        year: PropTypes.number.isRequired,
         preview: PropTypes.string.isRequired,
         director: PropTypes.string.isRequired,
         starring: PropTypes.arrayOf(
@@ -95,11 +81,23 @@ App.propTypes = {
         rating: PropTypes.number.isRequired,
       })
   ).isRequired,
+  onMovieCardClick: PropTypes.func.isRequired,
+  currentCard: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
+  ]),
 };
 
 const mapStateToProps = (state) => ({
   movies: state.movies,
+  currentCard: state.currentCard,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onMovieCardClick(movie) {
+    dispatch(ActionCreator.changeCurrentCard(movie));
+  }
 });
 
 export {App};
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

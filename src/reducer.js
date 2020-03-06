@@ -1,27 +1,46 @@
 import {extend} from "./utils";
 import movies from "./mocks/movies";
-
-const DEFAULT_GENRE = `All`;
+import {DEFAULT_GENRE, MovieCardIndex} from "./const";
 
 const initialState = {
-  movies,
+  activeCardIndex: -1,
+  amountCards: MovieCardIndex.DEFAULT,
   currentGenre: DEFAULT_GENRE,
-  activeGenreLinkId: 0,
+  currentCard: false,
+  movieNavLinkIndex: 0,
+  movies,
 };
 
 const ActionType = {
+  CHANGE_ACTIVE_CARD_INDEX: `CHANGE_ACTIVE_CARD_INDEX`,
+  CHANGE_AMOUNT_CARDS: `CHANGE_AMOUNT_CARDS`,
   CHANGE_GENRE: `CHANGE_GENRE`,
-  CHANGE_ACTIVE_GENRE_LINK: `CHANGE_ACTIVE_GENRE_LINK`,
+  CHANGE_MOVIE_NAV: `CHANGE_MOVIE_NAV`,
   FILTER_BY_GENRE: `FILTER_BY_GENRE`,
+  CHANGE_CURRENT_CARD: `CHANGE_CURRENT_CARD`,
 };
 
-const filterByGenre = (genre) => {
-  return movies.filter((movie) => {
+const filterByGenre = (films, genre) => {
+  return films.filter((movie) => {
     return movie.genre === genre;
   });
 };
 
 const ActionCreator = {
+  changeActiveCardIndex: (index) => {
+    return {
+      type: ActionType.CHANGE_ACTIVE_CARD_INDEX,
+      payload: index,
+    };
+  },
+
+  changeAmountCards: () => {
+    return {
+      type: ActionType.CHANGE_AMOUNT_CARDS,
+      payload: MovieCardIndex.DEFAULT,
+    };
+  },
+
   changeGenre: (genre) => {
     return {
       type: ActionType.CHANGE_GENRE,
@@ -29,15 +48,24 @@ const ActionCreator = {
     };
   },
 
-  changeActiveGenreLink: (index) => ({
-    type: ActionType.CHANGE_ACTIVE_GENRE_LINK,
-    payload: index,
-  }),
+  changeMovieNav: (movieNavLinkIndex) => {
+    return {
+      type: ActionType.CHANGE_MOVIE_NAV,
+      payload: movieNavLinkIndex,
+    };
+  },
 
   filterMovies: (genre) => {
     return {
       type: ActionType.FILTER_BY_GENRE,
-      payload: filterByGenre(genre),
+      payload: filterByGenre(movies, genre),
+    };
+  },
+
+  changeCurrentCard: (card) => {
+    return {
+      type: ActionType.CHANGE_CURRENT_CARD,
+      payload: card,
     };
   },
 };
@@ -47,6 +75,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHANGE_GENRE:
       return extend(state, {
         currentGenre: action.payload,
+        amountCards: MovieCardIndex.DEFAULT,
       });
 
     case ActionType.FILTER_BY_GENRE:
@@ -59,13 +88,32 @@ const reducer = (state = initialState, action) => {
       return extend(state, {
         movies: newFilms,
       });
-    case ActionType.CHANGE_ACTIVE_GENRE_LINK:
+
+    case ActionType.CHANGE_MOVIE_NAV:
       return extend(state, {
-        activeGenreLinkId: action.payload,
+        movieNavLinkIndex: action.payload,
+      });
+
+    case ActionType.CHANGE_CURRENT_CARD:
+      return extend(state, {
+        currentCard: action.payload,
+        movieNavLinkIndex: 0,
+      });
+
+    case ActionType.CHANGE_AMOUNT_CARDS:
+      const amountCards = state.amountCards + action.payload;
+
+      return extend(state, {
+        amountCards,
+      });
+
+    case ActionType.CHANGE_ACTIVE_CARD_INDEX:
+      return extend(state, {
+        activeCardIndex: action.payload,
       });
   }
 
   return state;
 };
 
-export {reducer, ActionType, ActionCreator};
+export {reducer, ActionType, ActionCreator, filterByGenre};

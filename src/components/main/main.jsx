@@ -1,13 +1,16 @@
-import React from "react";
+import React, {Fragment} from "react";
 import PropTypes from "prop-types";
 import Movies from "../movies/movies.jsx";
 import Header from "../header/header.jsx";
 import Footer from "../footer/footer.jsx";
+import MovieCardDescription from "../movie-card-description/movie-card-description.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
+import ButtonShowMore from "../button-show-more/button-show-more.jsx";
+import {connect} from "react-redux";
 
-const Main = ({title, genre, year, movies, onMovieCardClick}) => {
+const Main = ({title, genre, year, movies, amountCards, onMovieCardClick}) => {
   return (
-    <React.Fragment>
+    <Fragment>
       <section className="movie-card">
         <div className="movie-card__bg">
           <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
@@ -24,28 +27,11 @@ const Main = ({title, genre, year, movies, onMovieCardClick}) => {
                 height="327"/>
             </div>
 
-            <div className="movie-card__desc">
-              <h2 className="movie-card__title">{title}</h2>
-              <p className="movie-card__meta">
-                <span className="movie-card__genre">{genre}</span>
-                <span className="movie-card__year">{year}</span>
-              </p>
-
-              <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s" />
-                  </svg>
-                  <span>Play</span>
-                </button>
-                <button className="btn btn--list movie-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add" />
-                  </svg>
-                  <span>My list</span>
-                </button>
-              </div>
-            </div>
+            <MovieCardDescription
+              year={year}
+              genre={genre}
+              title={title}
+            />
           </div>
         </div>
       </section>
@@ -61,14 +47,16 @@ const Main = ({title, genre, year, movies, onMovieCardClick}) => {
             onMovieCardClick={onMovieCardClick}
           />
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          {amountCards < movies.length ?
+            <div className="catalog__more">
+              <ButtonShowMore />
+            </div> : ``
+          }
         </section>
 
         <Footer />
       </div>
-    </React.Fragment>
+    </Fragment>
   );
 };
 
@@ -83,6 +71,12 @@ Main.propTypes = {
         poster: PropTypes.string.isRequired
       }).isRequired
   ).isRequired,
+  amountCards: PropTypes.number.isRequired,
 };
 
-export default Main;
+const mapStateToProps = (state) => ({
+  amountCards: state.amountCards,
+});
+
+export {Main};
+export default connect(mapStateToProps)(Main);

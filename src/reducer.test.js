@@ -1,6 +1,7 @@
-import {reducer, ActionType} from "./reducer";
+import {reducer, ActionType, filterByGenre} from "./reducer";
+import {MovieCardIndex} from "./const";
 
-const DEFAULT_GENRE = `All`;
+const DEFAULT_GENRE = `All genres`;
 
 const filmFeature = {
   TITLES: [`Fantastic Beasts: The Crimes of Grindelwald`, `Bohemian Rhapsody`,
@@ -9,9 +10,8 @@ const filmFeature = {
   POSTERS: [`fantastic-beasts-the-crimes-of-grindelwald.jpg`, `bohemian-rhapsody.jpg`,
     `macbeth.jpg`, `aviator.jpg`, `we-need-to-talk-about-kevin.jpg`, `what-we-do-in-the-shadows.jpg`,
     `revenant.jpg`, `johnny-english.jpg`],
-  GENRES: [`Crime`, `Drama`, `Romance`, `Horror`, `Sci-Fi`, `Comedy`, `Thriller`,
-    `Documentary`],
-  YEARS: [`2018`, `2019`, `1971`, `2004`, `2011`, `2015`, `2015`, `2003`],
+  GENRES: [`Drama`, `Drama`, `Romance`, `Horror`, `Horror`, `Comedy`, `Thriller`, `Thriller`],
+  YEARS: [2018, 2019, 1971, 2004, 2011, 2015, 2015, 2003],
   PREVIEW: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
   DIRECTORS: [`David Yates`, `Bryan Singer`, `Roman Polanski`, `Martin Scorsese`, `Lynne Ramsay`, `Jemaine Clement`,
     `Alejandro G. Iñárritu`, `Peter Howitt`],
@@ -75,7 +75,7 @@ const generateReviews = () => {
   });
 };
 
-const generateFilms = () => {
+const generateMovies = () => {
   return filmFeature.TITLES.map((title, i) => {
     return {
       title,
@@ -93,89 +93,137 @@ const generateFilms = () => {
   });
 };
 
-const movies = generateFilms();
-
-const filterByGenre = (genre) => {
-  return movies.filter((movie) => {
-    return movie.genre === genre;
-  });
-};
+const movies = generateMovies();
 
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
-    movies,
+    activeCardIndex: -1,
+    amountCards: MovieCardIndex.DEFAULT,
     currentGenre: DEFAULT_GENRE,
-    activeGenreLinkId: 0,
+    currentCard: false,
+    movieNavLinkIndex: 0,
+    movies,
   });
 });
 
-it(`Reducer should change current index by a given value`, () => {
+it(`Reducer should change active card index by a given value`, () => {
   expect(reducer({
-    movies,
+    activeCardIndex: -1,
+    amountCards: MovieCardIndex.DEFAULT,
     currentGenre: DEFAULT_GENRE,
-    activeGenreLinkId: 0,
+    currentCard: false,
+    movieNavLinkIndex: 0,
+    movies,
   }, {
-    type: ActionType.CHANGE_ACTIVE_GENRE_LINK,
+    type: ActionType.CHANGE_ACTIVE_CARD_INDEX,
     payload: 1,
   })).toEqual({
-    movies,
+    activeCardIndex: 1,
+    amountCards: MovieCardIndex.DEFAULT,
     currentGenre: DEFAULT_GENRE,
-    activeGenreLinkId: 1,
+    currentCard: false,
+    movieNavLinkIndex: 0,
+    movies,
   });
 
   expect(reducer({
-    movies,
+    activeCardIndex: -1,
+    amountCards: MovieCardIndex.DEFAULT,
     currentGenre: DEFAULT_GENRE,
-    activeGenreLinkId: 0,
+    currentCard: false,
+    movieNavLinkIndex: 0,
+    movies,
   }, {
-    type: ActionType.CHANGE_ACTIVE_GENRE_LINK,
-    payload: 0,
+    type: ActionType.CHANGE_ACTIVE_CARD_INDEX,
+    payload: -1,
   })).toEqual({
-    movies,
+    activeCardIndex: -1,
+    amountCards: MovieCardIndex.DEFAULT,
     currentGenre: DEFAULT_GENRE,
-    activeGenreLinkId: 0,
+    currentCard: false,
+    movieNavLinkIndex: 0,
+    movies,
   });
 });
 
 it(`Reducer should change current genre by a new genre`, () => {
   expect(reducer({
-    movies,
+    activeCardIndex: -1,
+    amountCards: MovieCardIndex.DEFAULT,
     currentGenre: DEFAULT_GENRE,
-    activeGenreLinkId: 0,
+    currentCard: false,
+    movieNavLinkIndex: 0,
+    movies,
   }, {
     type: ActionType.CHANGE_GENRE,
     payload: `Horror`,
   })).toEqual({
-    movies,
+    activeCardIndex: -1,
+    amountCards: MovieCardIndex.DEFAULT,
     currentGenre: `Horror`,
-    activeGenreLinkId: 0,
+    currentCard: false,
+    movieNavLinkIndex: 0,
+    movies,
   });
 
   expect(reducer({
-    movies,
+    activeCardIndex: -1,
+    amountCards: MovieCardIndex.DEFAULT,
     currentGenre: DEFAULT_GENRE,
-    activeGenreLinkId: 0,
+    currentCard: false,
+    movieNavLinkIndex: 0,
+    movies,
   }, {
     type: ActionType.CHANGE_GENRE,
     payload: DEFAULT_GENRE,
   })).toEqual({
-    movies,
+    activeCardIndex: -1,
+    amountCards: MovieCardIndex.DEFAULT,
     currentGenre: DEFAULT_GENRE,
-    activeGenreLinkId: 0,
+    currentCard: false,
+    movieNavLinkIndex: 0,
+    movies,
   });
 });
 
 it(`Reducer should filter current movies by a new movies`, () => {
   expect(reducer({
-    movies,
+    activeCardIndex: -1,
+    amountCards: MovieCardIndex.DEFAULT,
     currentGenre: DEFAULT_GENRE,
-    activeGenreLinkId: 0,
+    currentCard: false,
+    movieNavLinkIndex: 0,
+    movies,
   }, {
     type: ActionType.FILTER_BY_GENRE,
-    payload: filterByGenre(DEFAULT_GENRE),
+    payload: filterByGenre(movies, DEFAULT_GENRE),
   })).toEqual({
-    movies,
+    activeCardIndex: -1,
+    amountCards: MovieCardIndex.DEFAULT,
     currentGenre: DEFAULT_GENRE,
-    activeGenreLinkId: 0,
+    currentCard: false,
+    movieNavLinkIndex: 0,
+    movies,
+  });
+});
+
+it(`Reducer should change current card by a new card`, () => {
+  expect(reducer({
+    activeCardIndex: -1,
+    amountCards: MovieCardIndex.DEFAULT,
+    currentGenre: DEFAULT_GENRE,
+    currentCard: false,
+    movieNavLinkIndex: 0,
+    movies,
+  }, {
+    type: ActionType.CHANGE_CURRENT_CARD,
+    payload: movies[0],
+  })).toEqual({
+    activeCardIndex: -1,
+    amountCards: MovieCardIndex.DEFAULT,
+    currentGenre: DEFAULT_GENRE,
+    currentCard: movies[0],
+    movieNavLinkIndex: 0,
+    movies,
   });
 });
