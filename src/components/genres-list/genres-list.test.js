@@ -7,6 +7,7 @@ it(`Should GenreList render correctly`, () => {
       <GenresList
         onGenreLinkClick={() => {}}
         currentGenre={`All genres`}
+        genres={[`All genres`, `Drama`, `Thriller`]}
       />
   ).toJSON();
 

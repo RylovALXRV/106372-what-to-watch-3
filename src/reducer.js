@@ -1,12 +1,14 @@
 import {extend} from "./utils";
-import movies from "./mocks/movies";
+import movies, {generateGenresList} from "./mocks/movies";
 import {DEFAULT_GENRE, MovieCardIndex} from "./const";
+import {filterByGenre} from "./utils";
 
 const initialState = {
   activeCardIndex: -1,
   amountCards: MovieCardIndex.DEFAULT,
   currentGenre: DEFAULT_GENRE,
   currentCard: false,
+  genres: generateGenresList(),
   movieNavLinkIndex: 0,
   movies,
 };
@@ -18,12 +20,6 @@ const ActionType = {
   CHANGE_MOVIE_NAV: `CHANGE_MOVIE_NAV`,
   FILTER_BY_GENRE: `FILTER_BY_GENRE`,
   CHANGE_CURRENT_CARD: `CHANGE_CURRENT_CARD`,
-};
-
-const filterByGenre = (films, genre) => {
-  return films.filter((movie) => {
-    return movie.genre === genre;
-  });
 };
 
 const ActionCreator = {

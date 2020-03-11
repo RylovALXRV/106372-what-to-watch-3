@@ -33,8 +33,18 @@ export default class VideoPlayer extends PureComponent {
     };
 
     video.ontimeupdate = () => this.setState({
-      progress: video.currentTime,
+      progress: Math.floor(video.currentTime),
     });
+  }
+
+  componentDidUpdate() {
+    const video = this._videoRef.current;
+
+    if (this.props.isPlaying) {
+      video.play();
+    } else {
+      video.load();
+    }
   }
 
   componentWillUnmount() {
@@ -52,16 +62,6 @@ export default class VideoPlayer extends PureComponent {
     return (
       <video ref={this._videoRef} width="280" height="175" />
     );
-  }
-
-  componentDidUpdate() {
-    const video = this._videoRef.current;
-
-    if (this.props.isPlaying) {
-      video.play();
-    } else {
-      video.load();
-    }
   }
 }
 

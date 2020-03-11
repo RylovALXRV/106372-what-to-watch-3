@@ -1,8 +1,13 @@
 import React from "react";
-import renderer from "react-test-renderer";
-import MoviePage from "./movie-page";
+import {configure, mount} from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
+import MoviePage from "./movie-page.jsx";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
+
+configure({
+  adapter: new Adapter()
+});
 
 const movieCard = {
   title: `Fantastic Beasts: The Crimes of Grindelwald`,
@@ -47,7 +52,9 @@ const mock = [
 
 const mockStore = configureStore([]);
 
-it(`Should MoviePage render correctly`, () => {
+it(`Should MoviePage`, () => {
+  const onMovieCardClick = jest.fn();
+
   const store = mockStore({
     currentGenre: `All genres`,
     activeGenreLinkId: 0,
@@ -56,19 +63,25 @@ it(`Should MoviePage render correctly`, () => {
     movieNavLinkIndex: 0,
   });
 
-  const tree = renderer.create(
+  const moviePage = mount(
       <Provider store={store}>
         <MoviePage
           card={movieCard}
           movies={mock}
-          onMovieCardClick={() => {}}
+          onMovieCardClick={onMovieCardClick}
         />
       </Provider>, {
         createNodeMock: () => {
           return {};
         }
       }
-  ).toJSON();
+  );
 
-  expect(tree).toMatchSnapshot();
+  const movieCardAnchorElement = moviePage.find(`a.small-movie-card__link`);
+  const movieCardImageElement = moviePage.find(`div.small-movie-card__image`);
+
+  movieCardAnchorElement.simulate(`click`, {preventDefault() {}});
+  movieCardImageElement.simulate(`click`);
+
+  expect(onMovieCardClick).toHaveBeenCalledTimes(2);
 });

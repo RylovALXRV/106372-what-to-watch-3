@@ -6,12 +6,7 @@ import Header from "../header/header.jsx";
 import Footer from "../footer/footer.jsx";
 import MovieCardDescription from "../movie-card-description/movie-card-description.jsx";
 import Movies from "../movies/movies.jsx";
-
-const filterByGenre = (movies, currentMovieGenre, startIndex, endIndex) => {
-  return movies.filter((movie) => {
-    return movie.genre === currentMovieGenre;
-  }).slice(startIndex, endIndex);
-};
+import {filterByGenre} from "../../utils";
 
 const MoviePage = ({card, movies, onMovieCardClick}) => {
   const {title, poster, genre, year} = card;
@@ -56,7 +51,7 @@ const MoviePage = ({card, movies, onMovieCardClick}) => {
 
           <div className="catalog__movies-list">
             <Movies
-              movies={filterByGenre(movies, genre, MovieCardIndex.START, MovieCardIndex.END)}
+              movies={filterByGenre(movies, genre).slice(MovieCardIndex.START, MovieCardIndex.END)}
               onMovieCardClick={onMovieCardClick}
             />
           </div>

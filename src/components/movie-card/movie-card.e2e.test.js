@@ -42,10 +42,4 @@ it(`Should MovieCard button be pressed`, () => {
   movieCard.simulate(`mouseleave`, {preventDefault() {}});
 
   expect(onMovieCardClick).toHaveBeenCalledTimes(2);
-
-  // закомментировал, т.к. сейчас сравнивать не с чем, нет аргументов
-
-  // expect(onMovieCardClick).toHaveBeenCalledWith(mock);
-  // expect(onMovieCardMouseEnter).toHaveBeenCalledWith(title);
-  // expect(onMovieCardMouseLeave).toHaveBeenCalledWith(null);
 });

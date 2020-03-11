@@ -3,9 +3,8 @@ import PropTypes from "prop-types";
 import MovieCard from "../movie-card/movie-card.jsx";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer";
-import {MovieCardIndex} from "../../const";
+import {MovieCardIndex, VIDEO_START_SETTIMEOUT} from "../../const";
 
-const VIDEO_START_SETTIMEOUT = 1000;
 let timerId = null;
 
 const Movies = ({movies, onMovieCardClick, onMovieCardMouse, activeCardIndex, amountCards}) => {

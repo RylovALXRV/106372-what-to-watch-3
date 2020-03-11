@@ -3,6 +3,7 @@ import renderer from "react-test-renderer";
 import Main from "./main.jsx";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
+import {DEFAULT_GENRE} from "../../const";
 
 const MovieCard = {
   TITLE: `Moon`,
@@ -31,13 +32,26 @@ const mock = [
   }
 ];
 
+const generateGenresList = () => {
+  const genres = [DEFAULT_GENRE];
+
+  const genresUnique = new Set(mock.map((movie) => {
+    return movie.genre;
+  }));
+
+  return genres.concat(Array.from(genresUnique));
+};
+
 const mockStore = configureStore([]);
 
 it(`Should Main render correctly`, () => {
   const store = mockStore({
-    currentGenre: `All`,
+    currentGenre: `All genres`,
+    activeGenreLinkId: 0,
     amountCards: 8,
     activeCardIndex: -1,
+    movieNavLinkIndex: 0,
+    genres: generateGenresList(),
   });
 
   const tree = renderer.create(
