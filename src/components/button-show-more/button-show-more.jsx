@@ -1,7 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer";
 
 const ButtonShowMore = ({onButtonClick}) => {
   return (
@@ -17,15 +15,5 @@ ButtonShowMore.propTypes = {
   onButtonClick: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  amountCards: state.amountCards,
-});
 
-const mapDispatchToProps = (dispatch) => ({
-  onButtonClick() {
-    dispatch(ActionCreator.changeAmountCards());
-  }
-});
-
-export {ButtonShowMore};
-export default connect(mapStateToProps, mapDispatchToProps)(ButtonShowMore);
+export default ButtonShowMore;

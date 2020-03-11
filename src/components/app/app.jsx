@@ -1,4 +1,4 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Main from "../main/main.jsx";
@@ -6,10 +6,8 @@ import MoviePage from "../movie-page/movie-page.jsx";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer";
 
-class App extends PureComponent {
-  _renderMovieScreen() {
-    const {title, genre, year, movies, onMovieCardClick, currentCard} = this.props;
-
+const App = ({title, genre, year, movies, onMovieCardClick, currentCard}) => {
+  const renderMovieScreen = () => {
     if (!currentCard) {
       return (
         <Main
@@ -29,29 +27,25 @@ class App extends PureComponent {
         onMovieCardClick={(movie) => onMovieCardClick(movie)}
       />
     );
-  }
+  };
 
-  render() {
-    const {movies} = this.props;
-
-    return (
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/">
-            {this._renderMovieScreen()}
-          </Route>
-          <Route exact path="/movie-page">
-            <MoviePage
-              card={this.props.movies[0]}
-              movies={movies}
-              onMovieCardClick={() => {}}
-            />
-          </Route>
-        </Switch>
-      </BrowserRouter>
-    );
-  }
-}
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/">
+          {renderMovieScreen()}
+        </Route>
+        <Route exact path="/movie-page">
+          <MoviePage
+            card={movies[0]}
+            movies={movies}
+            onMovieCardClick={() => {}}
+          />
+        </Route>
+      </Switch>
+    </BrowserRouter>
+  );
+};
 
 App.propTypes = {
   title: PropTypes.string.isRequired,

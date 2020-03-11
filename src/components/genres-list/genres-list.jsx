@@ -2,12 +2,11 @@ import React from "react";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer";
 import PropTypes from "prop-types";
-import {generateGenresList} from "../../mocks/movies";
 
-const GenresList = ({onGenreLinkClick, currentGenre}) => {
+const GenresList = ({genres, onGenreLinkClick, currentGenre}) => {
   return (
     <ul className="catalog__genres-list">
-      {generateGenresList().map((genre) => (
+      {genres.map((genre) => (
         <li
           className={`catalog__genres-item ${genre === currentGenre ? `catalog__genres-item--active` : ``}`}
           key={genre}
@@ -29,10 +28,14 @@ const GenresList = ({onGenreLinkClick, currentGenre}) => {
 GenresList.propTypes = {
   onGenreLinkClick: PropTypes.func.isRequired,
   currentGenre: PropTypes.string.isRequired,
+  genres: PropTypes.arrayOf(
+      PropTypes.string.isRequired
+  ).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   currentGenre: state.currentGenre,
+  genres: state.genres,
 });
 
 const mapDispatchToProps = (dispatch) => ({

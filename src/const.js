@@ -18,4 +18,6 @@ const MOVIE_NAV_LINKS = [
 
 const DEFAULT_GENRE = `All genres`;
 
-export {MovieCardIndex, MOVIE_NAV_LINKS, MovieNavLink, DEFAULT_GENRE};
+const VIDEO_START_SETTIMEOUT = 1000;
+
+export {MovieCardIndex, MOVIE_NAV_LINKS, MovieNavLink, DEFAULT_GENRE, VIDEO_START_SETTIMEOUT};

@@ -1,3 +1,5 @@
+import {DEFAULT_GENRE} from "../const";
+
 const filmFeature = {
   TITLES: [`Fantastic Beasts: The Crimes of Grindelwald`, `Bohemian Rhapsody`,
     `Macbeth`, `Aviator`, `We need to talk about Kevin`, `What We Do in the Shadows`,
@@ -89,7 +91,7 @@ const generateMovies = () => {
 };
 
 const generateGenresList = () => {
-  const genres = [`All genres`];
+  const genres = [DEFAULT_GENRE];
 
   const genresUnique = new Set(generateMovies().map((movie) => {
     return movie.genre;

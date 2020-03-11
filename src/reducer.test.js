@@ -95,6 +95,16 @@ const generateMovies = () => {
 
 const movies = generateMovies();
 
+const generateGenresList = () => {
+  const genres = [DEFAULT_GENRE];
+
+  const genresUnique = new Set(movies.map((movie) => {
+    return movie.genre;
+  }));
+
+  return genres.concat(Array.from(genresUnique));
+};
+
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
     activeCardIndex: -1,
@@ -102,6 +112,7 @@ it(`Reducer without additional parameters should return initial state`, () => {
     currentGenre: DEFAULT_GENRE,
     currentCard: false,
     movieNavLinkIndex: 0,
+    genres: generateGenresList(),
     movies,
   });
 });
@@ -113,6 +124,7 @@ it(`Reducer should change active card index by a given value`, () => {
     currentGenre: DEFAULT_GENRE,
     currentCard: false,
     movieNavLinkIndex: 0,
+    genres: generateGenresList(),
     movies,
   }, {
     type: ActionType.CHANGE_ACTIVE_CARD_INDEX,
@@ -123,6 +135,7 @@ it(`Reducer should change active card index by a given value`, () => {
     currentGenre: DEFAULT_GENRE,
     currentCard: false,
     movieNavLinkIndex: 0,
+    genres: generateGenresList(),
     movies,
   });
 
@@ -132,6 +145,7 @@ it(`Reducer should change active card index by a given value`, () => {
     currentGenre: DEFAULT_GENRE,
     currentCard: false,
     movieNavLinkIndex: 0,
+    genres: generateGenresList(),
     movies,
   }, {
     type: ActionType.CHANGE_ACTIVE_CARD_INDEX,
@@ -142,6 +156,7 @@ it(`Reducer should change active card index by a given value`, () => {
     currentGenre: DEFAULT_GENRE,
     currentCard: false,
     movieNavLinkIndex: 0,
+    genres: generateGenresList(),
     movies,
   });
 });
@@ -153,6 +168,7 @@ it(`Reducer should change current genre by a new genre`, () => {
     currentGenre: DEFAULT_GENRE,
     currentCard: false,
     movieNavLinkIndex: 0,
+    genres: generateGenresList(),
     movies,
   }, {
     type: ActionType.CHANGE_GENRE,
@@ -163,6 +179,7 @@ it(`Reducer should change current genre by a new genre`, () => {
     currentGenre: `Horror`,
     currentCard: false,
     movieNavLinkIndex: 0,
+    genres: generateGenresList(),
     movies,
   });
 
@@ -172,6 +189,7 @@ it(`Reducer should change current genre by a new genre`, () => {
     currentGenre: DEFAULT_GENRE,
     currentCard: false,
     movieNavLinkIndex: 0,
+    genres: generateGenresList(),
     movies,
   }, {
     type: ActionType.CHANGE_GENRE,
@@ -182,6 +200,7 @@ it(`Reducer should change current genre by a new genre`, () => {
     currentGenre: DEFAULT_GENRE,
     currentCard: false,
     movieNavLinkIndex: 0,
+    genres: generateGenresList(),
     movies,
   });
 });
@@ -193,6 +212,7 @@ it(`Reducer should filter current movies by a new movies`, () => {
     currentGenre: DEFAULT_GENRE,
     currentCard: false,
     movieNavLinkIndex: 0,
+    genres: generateGenresList(),
     movies,
   }, {
     type: ActionType.FILTER_BY_GENRE,
@@ -203,6 +223,7 @@ it(`Reducer should filter current movies by a new movies`, () => {
     currentGenre: DEFAULT_GENRE,
     currentCard: false,
     movieNavLinkIndex: 0,
+    genres: generateGenresList(),
     movies,
   });
 });
@@ -214,6 +235,7 @@ it(`Reducer should change current card by a new card`, () => {
     currentGenre: DEFAULT_GENRE,
     currentCard: false,
     movieNavLinkIndex: 0,
+    genres: generateGenresList(),
     movies,
   }, {
     type: ActionType.CHANGE_CURRENT_CARD,
@@ -224,6 +246,51 @@ it(`Reducer should change current card by a new card`, () => {
     currentGenre: DEFAULT_GENRE,
     currentCard: movies[0],
     movieNavLinkIndex: 0,
+    genres: generateGenresList(),
+    movies,
+  });
+});
+
+it(`Reducer should change movie nav index by a given value`, () => {
+  expect(reducer({
+    activeCardIndex: -1,
+    amountCards: MovieCardIndex.DEFAULT,
+    currentGenre: DEFAULT_GENRE,
+    currentCard: false,
+    movieNavLinkIndex: 0,
+    genres: generateGenresList(),
+    movies,
+  }, {
+    type: ActionType.CHANGE_MOVIE_NAV,
+    payload: 2,
+  })).toEqual({
+    activeCardIndex: -1,
+    amountCards: MovieCardIndex.DEFAULT,
+    currentGenre: DEFAULT_GENRE,
+    currentCard: false,
+    movieNavLinkIndex: 2,
+    genres: generateGenresList(),
+    movies,
+  });
+
+  expect(reducer({
+    activeCardIndex: -1,
+    amountCards: MovieCardIndex.DEFAULT,
+    currentGenre: DEFAULT_GENRE,
+    currentCard: false,
+    movieNavLinkIndex: 0,
+    genres: generateGenresList(),
+    movies,
+  }, {
+    type: ActionType.CHANGE_MOVIE_NAV,
+    payload: 0,
+  })).toEqual({
+    activeCardIndex: -1,
+    amountCards: MovieCardIndex.DEFAULT,
+    currentGenre: DEFAULT_GENRE,
+    currentCard: false,
+    movieNavLinkIndex: 0,
+    genres: generateGenresList(),
     movies,
   });
 });

@@ -7,8 +7,9 @@ import MovieCardDescription from "../movie-card-description/movie-card-descripti
 import GenresList from "../genres-list/genres-list.jsx";
 import ButtonShowMore from "../button-show-more/button-show-more.jsx";
 import {connect} from "react-redux";
+import {ActionCreator} from "../../reducer";
 
-const Main = ({title, genre, year, movies, amountCards, onMovieCardClick}) => {
+const Main = ({title, genre, year, movies, amountCards, onMovieCardClick, onButtonClick}) => {
   return (
     <Fragment>
       <section className="movie-card">
@@ -49,7 +50,9 @@ const Main = ({title, genre, year, movies, amountCards, onMovieCardClick}) => {
 
           {amountCards < movies.length ?
             <div className="catalog__more">
-              <ButtonShowMore />
+              <ButtonShowMore
+                onButtonClick={onButtonClick}
+              />
             </div> : ``
           }
         </section>
@@ -72,11 +75,18 @@ Main.propTypes = {
       }).isRequired
   ).isRequired,
   amountCards: PropTypes.number.isRequired,
+  onButtonClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   amountCards: state.amountCards,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  onButtonClick() {
+    dispatch(ActionCreator.changeAmountCards());
+  }
+});
+
 export {Main};
-export default connect(mapStateToProps)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
