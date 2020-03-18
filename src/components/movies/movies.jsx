@@ -7,7 +7,7 @@ import {MovieCardIndex, VIDEO_START_SETTIMEOUT} from "../../const";
 
 let timerId = null;
 
-const Movies = ({movies, onMovieCardClick, onMovieCardMouse, activeCardIndex, amountCards}) => {
+const Movies = ({movies, onMovieCardClick, onMovieCard, activeCardIndex, amountCards}) => {
   return (
     <div className="catalog__movies-list">
       {movies.slice(MovieCardIndex.START, amountCards).map((movie, i) => {
@@ -21,13 +21,14 @@ const Movies = ({movies, onMovieCardClick, onMovieCardMouse, activeCardIndex, am
             isPlaying={i === activeCardIndex}
             onMovieCardClick={() => {
               onMovieCardClick(movie);
+              onMovieCard(-1);
               clearTimeout(timerId);
             }}
             onMovieCardMouseEnter={() => {
-              timerId = setTimeout(() => onMovieCardMouse(i), VIDEO_START_SETTIMEOUT);
+              timerId = setTimeout(() => onMovieCard(i), VIDEO_START_SETTIMEOUT);
             }}
             onMovieCardMouseLeave={() => {
-              onMovieCardMouse(-1);
+              onMovieCard(-1);
               clearTimeout(timerId);
             }}
             key={`${title}-${i}`}
@@ -50,7 +51,7 @@ Movies.propTypes = {
         starring: PropTypes.arrayOf(
             PropTypes.string.isRequired
         ).isRequired,
-        duration: PropTypes.string.isRequired,
+        duration: PropTypes.number.isRequired,
         reviews: PropTypes.arrayOf(
             PropTypes.exact({
               text: PropTypes.string.isRequired,
@@ -64,7 +65,7 @@ Movies.propTypes = {
       })
   ).isRequired,
   onMovieCardClick: PropTypes.func.isRequired,
-  onMovieCardMouse: PropTypes.func.isRequired,
+  onMovieCard: PropTypes.func.isRequired,
   activeCardIndex: PropTypes.number.isRequired,
   amountCards: PropTypes.number.isRequired,
 };
@@ -75,7 +76,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onMovieCardMouse(index) {
+  onMovieCard(index) {
     dispatch(ActionCreator.changeActiveCardIndex(index));
   },
 });

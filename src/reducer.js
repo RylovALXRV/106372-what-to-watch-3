@@ -10,6 +10,9 @@ const initialState = {
   currentCard: false,
   genres: generateGenresList(),
   movieNavLinkIndex: 0,
+  promoMovie: movies[0],
+  player: false,
+  currentMovie: {},
   movies,
 };
 
@@ -20,6 +23,9 @@ const ActionType = {
   CHANGE_MOVIE_NAV: `CHANGE_MOVIE_NAV`,
   FILTER_BY_GENRE: `FILTER_BY_GENRE`,
   CHANGE_CURRENT_CARD: `CHANGE_CURRENT_CARD`,
+  ADD_PLAYER: `ADD_PLAYER`,
+  ADD_CURRENT_MOVIE: `ADD_CURRENT_MOVIE`,
+  REMOVE_PLAYER: `REMOVE_PLAYER`,
 };
 
 const ActionCreator = {
@@ -64,6 +70,27 @@ const ActionCreator = {
       payload: card,
     };
   },
+
+  addPlayer: () => {
+    return {
+      type: ActionType.ADD_PLAYER,
+      payload: true,
+    };
+  },
+
+  removePlayer: () => {
+    return {
+      type: ActionType.REMOVE_PLAYER,
+      payload: false,
+    };
+  },
+
+  addCurrentMovie: (movie) => {
+    return {
+      type: ActionType.ADD_CURRENT_MOVIE,
+      payload: movie,
+    };
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -106,6 +133,21 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHANGE_ACTIVE_CARD_INDEX:
       return extend(state, {
         activeCardIndex: action.payload,
+      });
+
+    case ActionType.ADD_PLAYER:
+      return extend(state, {
+        player: action.payload,
+      });
+
+    case ActionType.ADD_CURRENT_MOVIE:
+      return extend(state, {
+        currentMovie: action.payload,
+      });
+
+    case ActionType.REMOVE_PLAYER:
+      return extend(state, {
+        player: action.payload,
       });
   }
 

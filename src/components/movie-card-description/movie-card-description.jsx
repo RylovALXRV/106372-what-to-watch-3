@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const MovieCardDescription = ({title, genre, year}) => {
+const MovieCardDescription = ({title, genre, year, onMovieButtonPlayClick}) => {
   return (
     <div className="movie-card__desc">
       <h2 className="movie-card__title">{title}</h2>
@@ -11,7 +11,11 @@ const MovieCardDescription = ({title, genre, year}) => {
       </p>
 
       <div className="movie-card__buttons">
-        <button className="btn btn--play movie-card__button" type="button">
+        <button
+          className="btn btn--play movie-card__button"
+          type="button"
+          onClick={onMovieButtonPlayClick}
+        >
           <svg viewBox="0 0 19 19" width="19" height="19">
             <use xlinkHref="#play-s" />
           </svg>
@@ -32,6 +36,7 @@ MovieCardDescription.propTypes = {
   title: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   year: PropTypes.number.isRequired,
+  onMovieButtonPlayClick: PropTypes.func.isRequired,
 };
 
 export default MovieCardDescription;

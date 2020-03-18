@@ -7,8 +7,10 @@ import Footer from "../footer/footer.jsx";
 import MovieCardDescription from "../movie-card-description/movie-card-description.jsx";
 import Movies from "../movies/movies.jsx";
 import {filterByGenre} from "../../utils";
+import {connect} from "react-redux";
+import {ActionCreator} from "../../reducer";
 
-const MoviePage = ({card, movies, onMovieCardClick}) => {
+const MoviePage = ({card, movies, onMovieCardClick, onMovieButtonPlayClick}) => {
   const {title, poster, genre, year} = card;
 
   return (
@@ -28,6 +30,9 @@ const MoviePage = ({card, movies, onMovieCardClick}) => {
               year={year}
               genre={genre}
               title={title}
+              onMovieButtonPlayClick={() => {
+                onMovieButtonPlayClick(card);
+              }}
             />
           </div>
         </div>
@@ -70,7 +75,7 @@ MoviePage.propTypes = {
     genre: PropTypes.string.isRequired,
     year: PropTypes.number.isRequired,
     director: PropTypes.string.isRequired,
-    duration: PropTypes.string.isRequired,
+    duration: PropTypes.number.isRequired,
     starring: PropTypes.arrayOf(
         PropTypes.string.isRequired
     ).isRequired,
@@ -96,7 +101,7 @@ MoviePage.propTypes = {
         starring: PropTypes.arrayOf(
             PropTypes.string.isRequired
         ).isRequired,
-        duration: PropTypes.string.isRequired,
+        duration: PropTypes.number.isRequired,
         reviews: PropTypes.arrayOf(
             PropTypes.exact({
               text: PropTypes.string.isRequired,
@@ -109,7 +114,21 @@ MoviePage.propTypes = {
         rating: PropTypes.number.isRequired,
       })
   ).isRequired,
-  onMovieCardClick: PropTypes.func,
+  onMovieCardClick: PropTypes.func.isRequired,
+  onMovieButtonPlayClick: PropTypes.func.isRequired,
 };
 
-export default MoviePage;
+
+const mapStateToProps = (state) => ({
+  currentMovie: state.currentMovie,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onMovieButtonPlayClick(movie) {
+    dispatch(ActionCreator.addCurrentMovie(movie));
+    dispatch(ActionCreator.addPlayer());
+  }
+});
+
+export {MoviePage};
+export default connect(mapStateToProps, mapDispatchToProps)(MoviePage);

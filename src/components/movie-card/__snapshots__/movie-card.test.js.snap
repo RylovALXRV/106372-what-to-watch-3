@@ -11,6 +11,7 @@ exports[`Should MovieCard render correctly 1`] = `
     onClick={[Function]}
   >
     <video
+      className=""
       height="175"
       width="280"
     />

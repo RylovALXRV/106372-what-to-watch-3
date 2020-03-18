@@ -9,12 +9,14 @@ import ButtonShowMore from "../button-show-more/button-show-more.jsx";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer";
 
-const Main = ({title, genre, year, movies, amountCards, onMovieCardClick, onButtonClick}) => {
+const Main = ({promoMovie, movies, amountCards, onMovieCardClick, onButtonClick, onMovieButtonPlayClick}) => {
+  const {title, genre, year, poster} = promoMovie;
+
   return (
     <Fragment>
       <section className="movie-card">
         <div className="movie-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
+          <img src={`img/${poster}`} alt={title} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -24,14 +26,16 @@ const Main = ({title, genre, year, movies, amountCards, onMovieCardClick, onButt
         <div className="movie-card__wrap">
           <div className="movie-card__info">
             <div className="movie-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218"
-                height="327"/>
+              <img src={`img/${poster}`} alt={title} width="218" height="327" />
             </div>
 
             <MovieCardDescription
               year={year}
               genre={genre}
               title={title}
+              onMovieButtonPlayClick={() => {
+                onMovieButtonPlayClick(promoMovie);
+              }}
             />
           </div>
         </div>
@@ -64,9 +68,12 @@ const Main = ({title, genre, year, movies, amountCards, onMovieCardClick, onButt
 };
 
 Main.propTypes = {
-  title: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
-  year: PropTypes.number.isRequired,
+  promoMovie: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+    poster: PropTypes.string.isRequired,
+  }).isRequired,
   onMovieCardClick: PropTypes.func.isRequired,
   movies: PropTypes.arrayOf(
       PropTypes.shape({
@@ -76,15 +83,22 @@ Main.propTypes = {
   ).isRequired,
   amountCards: PropTypes.number.isRequired,
   onButtonClick: PropTypes.func.isRequired,
+  onMovieButtonPlayClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   amountCards: state.amountCards,
+  currentMovie: state.currentMovie,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onButtonClick() {
     dispatch(ActionCreator.changeAmountCards());
+  },
+
+  onMovieButtonPlayClick(movie) {
+    dispatch(ActionCreator.addCurrentMovie(movie));
+    dispatch(ActionCreator.addPlayer());
   }
 });
 

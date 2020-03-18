@@ -44,7 +44,7 @@ MovieNav.propTypes = {
     genre: PropTypes.string.isRequired,
     year: PropTypes.number.isRequired,
     director: PropTypes.string.isRequired,
-    duration: PropTypes.string.isRequired,
+    duration: PropTypes.number.isRequired,
     preview: PropTypes.string.isRequired,
     starring: PropTypes.arrayOf(
         PropTypes.string.isRequired

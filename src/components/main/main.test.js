@@ -5,10 +5,23 @@ import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import {DEFAULT_GENRE} from "../../const";
 
-const MovieCard = {
-  TITLE: `Moon`,
-  GENRE: `Crime`,
-  YEAR: 2009
+const promoMovie = {
+  title: `Bohemian Rhapsody`,
+  poster: `bohemian-rhapsody.jpg`,
+  genre: `drama`,
+  year: 2019,
+  preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+  director: `Bryan Singer`,
+  starring: [`Eddie Redmayne`, `Katherine Waterston`],
+  duration: 120,
+  reviews: [{
+    text: `The mannered, madcap proceedings are often delightful, occasionally silly, and↵      here and there, gruesome and/or heartbreaking.`,
+    rating: 8.0,
+    author: `Kate Muir`,
+    date: `March 15, 2019`
+  }],
+  descriptions: `In late 1823, Hugh Glass guides Captain Andrew Hen…ers through territory of the present day Dakotas.`,
+  rating: 8.0,
 };
 
 const mock = [
@@ -20,7 +33,7 @@ const mock = [
     preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     director: `Bryan Singer`,
     starring: [`Eddie Redmayne`, `Katherine Waterston`],
-    duration: `2h 15m`,
+    duration: 150,
     reviews: [{
       text: `The mannered, madcap proceedings are often delightful, occasionally silly, and↵      here and there, gruesome and/or heartbreaking.`,
       rating: 8.0,
@@ -57,9 +70,7 @@ it(`Should Main render correctly`, () => {
   const tree = renderer.create(
       <Provider store={store}>
         <Main
-          title={MovieCard.TITLE}
-          genre={MovieCard.GENRE}
-          year={MovieCard.YEAR}
+          promoMovie={promoMovie}
           movies={mock}
           onMovieCardClick={() => {}}
         />

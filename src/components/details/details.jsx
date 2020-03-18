@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {generateDuration} from "../../utils";
 
 const Details = ({movie}) => {
   const {director, starring, duration, genre, year} = movie;
@@ -22,7 +23,7 @@ const Details = ({movie}) => {
       <div className="movie-card__text-col">
         <p className="movie-card__details-item">
           <strong className="movie-card__details-name">Run Time</strong>
-          <span className="movie-card__details-value">{duration}</span>
+          <span className="movie-card__details-value">{generateDuration(duration)}</span>
         </p>
         <p className="movie-card__details-item">
           <strong className="movie-card__details-name">Genre</strong>
@@ -45,7 +46,7 @@ Details.propTypes = {
     starring: PropTypes.arrayOf(
         PropTypes.string.isRequired
     ).isRequired,
-    duration: PropTypes.string.isRequired,
+    duration: PropTypes.number.isRequired,
     genre: PropTypes.string.isRequired,
     year: PropTypes.number.isRequired,
     reviews: PropTypes.arrayOf(

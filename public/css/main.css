@@ -550,7 +550,8 @@ main {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
-  margin-bottom: 60px; }
+  margin-bottom: 60px;
+  width: 100%; }
   .catalog__movies-list:last-child {
     margin-bottom: 0; }
 

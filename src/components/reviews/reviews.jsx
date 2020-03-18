@@ -52,7 +52,7 @@ Reviews.propTypes = {
     starring: PropTypes.arrayOf(
         PropTypes.string.isRequired
     ).isRequired,
-    duration: PropTypes.string.isRequired,
+    duration: PropTypes.number.isRequired,
     genre: PropTypes.string.isRequired,
     year: PropTypes.number.isRequired,
     reviews: PropTypes.arrayOf(

@@ -10,17 +10,18 @@ export default class VideoPlayer extends PureComponent {
     this.state = {
       isLoading: true,
       isPlaying: props.isPlaying,
+      isPause: props.isPause,
       progress: 0,
     };
   }
 
   componentDidMount() {
-    const {preview, poster} = this.props;
+    const {preview, poster, isMuted = true} = this.props;
     const video = this._videoRef.current;
 
     video.src = preview;
     video.poster = `img/${poster}`;
-    video.muted = true;
+    video.muted = isMuted;
 
     video.oncanplaythrough = () => this.setState({
       isLoading: false,
@@ -41,7 +42,11 @@ export default class VideoPlayer extends PureComponent {
     const video = this._videoRef.current;
 
     if (this.props.isPlaying) {
-      video.play();
+      if (!this.props.isPause) {
+        video.play();
+      } else {
+        video.pause();
+      }
     } else {
       video.load();
     }
@@ -55,12 +60,14 @@ export default class VideoPlayer extends PureComponent {
     video.ontimeupdate = null;
     video.src = ``;
     video.poster = ``;
-    video.muted = false;
+    video.muted = ``;
   }
 
   render() {
+    const {className = ``} = this.props;
+
     return (
-      <video ref={this._videoRef} width="280" height="175" />
+      <video ref={this._videoRef} className={className} width="280" height="175" />
     );
   }
 }
@@ -69,4 +76,7 @@ VideoPlayer.propTypes = {
   preview: PropTypes.string.isRequired,
   poster: PropTypes.string.isRequired,
   isPlaying: PropTypes.bool.isRequired,
+  className: PropTypes.string,
+  isMuted: PropTypes.bool,
+  isPause: PropTypes.bool.isRequired,
 };

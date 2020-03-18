@@ -5,17 +5,27 @@ import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer";
+import Player from "../player/player.jsx";
+import withPlayer from "../../hocs/with-player.jsx";
 
-const App = ({title, genre, year, movies, onMovieCardClick, currentCard}) => {
+const PlayerWrapped = withPlayer(Player);
+
+const App = ({promoMovie, movies, onMovieCardClick, currentCard, player, currentMovie}) => {
   const renderMovieScreen = () => {
-    if (!currentCard) {
+    if (!currentCard && !player) {
       return (
         <Main
-          title={title}
-          genre={genre}
-          year={year}
+          promoMovie={promoMovie}
           movies={movies}
           onMovieCardClick={(movie) => onMovieCardClick(movie)}
+        />
+      );
+    }
+
+    if (player) {
+      return (
+        <PlayerWrapped
+          movie={currentMovie}
         />
       );
     }
@@ -48,9 +58,28 @@ const App = ({title, genre, year, movies, onMovieCardClick, currentCard}) => {
 };
 
 App.propTypes = {
-  title: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
-  year: PropTypes.number.isRequired,
+  promoMovie: PropTypes.exact({
+    title: PropTypes.string.isRequired,
+    poster: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+    preview: PropTypes.string.isRequired,
+    director: PropTypes.string.isRequired,
+    starring: PropTypes.arrayOf(
+        PropTypes.string.isRequired
+    ).isRequired,
+    duration: PropTypes.number.isRequired,
+    reviews: PropTypes.arrayOf(
+        PropTypes.exact({
+          text: PropTypes.string.isRequired,
+          rating: PropTypes.number.isRequired,
+          author: PropTypes.string.isRequired,
+          date: PropTypes.string.isRequired,
+        }).isRequired
+    ).isRequired,
+    descriptions: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
+  }).isRequired,
   movies: PropTypes.arrayOf(
       PropTypes.exact({
         title: PropTypes.string.isRequired,
@@ -62,7 +91,7 @@ App.propTypes = {
         starring: PropTypes.arrayOf(
             PropTypes.string.isRequired
         ).isRequired,
-        duration: PropTypes.string.isRequired,
+        duration: PropTypes.number.isRequired,
         reviews: PropTypes.arrayOf(
             PropTypes.exact({
               text: PropTypes.string.isRequired,
@@ -80,11 +109,16 @@ App.propTypes = {
     PropTypes.object,
     PropTypes.bool,
   ]),
+  player: PropTypes.bool.isRequired,
+  currentMovie: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   movies: state.movies,
   currentCard: state.currentCard,
+  promoMovie: state.promoMovie,
+  player: state.player,
+  currentMovie: state.currentMovie,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -16,7 +16,7 @@ const mock = [
     preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     director: `Bryan Singer`,
     starring: [`Eddie Redmayne`, `Katherine Waterston`],
-    duration: `2h 15m`,
+    duration: 90,
     reviews: [{
       text: `The mannered, madcap proceedings are often delightful, occasionally silly, and↵      here and there, gruesome and/or heartbreaking.`,
       rating: 8.0,
@@ -38,7 +38,7 @@ it(`Should Movies`, () => {
         activeCardIndex={-1}
         amountCards={8}
         onMovieCardClick={onMovieCardClick}
-        onMovieCardMouse={onMovieCardMouse}
+        onMovieCard={onMovieCardMouse}
       />
   );
 

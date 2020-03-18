@@ -7,3 +7,7 @@ export const filterByGenre = (films, genre) => {
     return movie.genre === genre;
   });
 };
+
+export const generateDuration = (duration) => {
+  return `${Math.floor(duration / 60)}h ${duration % 60}m`;
+};

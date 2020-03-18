@@ -92,6 +92,7 @@ Array [
           >
             <button
               className="btn btn--play movie-card__button"
+              onClick={[Function]}
               type="button"
             >
               <svg
@@ -266,6 +267,7 @@ Array [
               onClick={[Function]}
             >
               <video
+                className=""
                 height="175"
                 width="280"
               />

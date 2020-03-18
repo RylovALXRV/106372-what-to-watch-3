@@ -57,10 +57,6 @@ const reviewFeature = {
     `December 20, 2016`, `March 15, 2019`, `November 07, 2014`],
 };
 
-const generateDuration = (duration) => {
-  return `${Math.floor(duration / 60)}h ${duration % 60}m`;
-};
-
 const generateReviews = () => {
   return reviewFeature.TEXTS.map((reviewText, i) => {
     return {
@@ -82,7 +78,7 @@ const generateMovies = () => {
       preview: filmFeature.PREVIEW,
       director: filmFeature.DIRECTORS[i],
       starring: filmFeature.ACTORS[i],
-      duration: generateDuration(filmFeature.DURATIONS[i]),
+      duration: filmFeature.DURATIONS[i],
       reviews: generateReviews(),
       descriptions: filmFeature.DESCRIPTIONS[i],
       rating: reviewFeature.RATINGS[i],

@@ -5,7 +5,7 @@ import Overview from "./overview.jsx";
 const mock = {
   director: `David Yates`,
   starring: [`Rami Malek`, `Jon Finch`, `Cate Blanchett`],
-  duration: `1h 30m`,
+  duration: 86,
   genre: `drama`,
   year: 2018,
   reviews: [{

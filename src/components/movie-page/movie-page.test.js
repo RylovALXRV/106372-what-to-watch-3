@@ -11,7 +11,7 @@ const movieCard = {
   year: 2018,
   director: `Bryan Singer`,
   starring: [`Eddie Redmayne`, `Katherine Waterston`],
-  duration: `1h 20m`,
+  duration: 75,
   reviews: [{
     text: `The mannered, madcap proceedings are often delightful, occasionally silly, and↵      here and there, gruesome and/or heartbreaking.`,
     rating: 8.0,
@@ -33,7 +33,7 @@ const mock = [
     preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     director: `Bryan Singer`,
     starring: [`Eddie Redmayne`, `Katherine Waterston`],
-    duration: `2h 15m`,
+    duration: 75,
     reviews: [{
       text: `The mannered, madcap proceedings are often delightful, occasionally silly, and↵      here and there, gruesome and/or heartbreaking.`,
       rating: 8.0,

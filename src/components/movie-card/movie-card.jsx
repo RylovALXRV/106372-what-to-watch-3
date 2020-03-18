@@ -17,6 +17,7 @@ const MovieCard = ({title, poster, preview, isPlaying, onMovieCardClick,
           preview={preview}
           title={title}
           poster={poster}
+          isPause={!isPlaying}
         />
       </div>
       <h3 className="small-movie-card__title">

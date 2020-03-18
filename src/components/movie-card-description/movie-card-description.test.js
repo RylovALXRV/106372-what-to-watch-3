@@ -16,6 +16,7 @@ it(`Should MovieCardDescription render correctly`, () => {
         year={year}
         genre={genre}
         title={title}
+        onMovieButtonPlayClick={() => {}}
       />
   ).toJSON();
 
