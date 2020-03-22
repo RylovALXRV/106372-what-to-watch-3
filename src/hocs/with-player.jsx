@@ -7,19 +7,29 @@ const withPlayer = (Component) => {
       super(props);
 
       this.state = {
-        isLoading: true,
+        isPlaying: true,
         isPause: true,
-        isFullScreen: false
+        isFullScreen: false,
       };
     }
 
+    _toggleFullScreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    }
+
     render() {
-      const {isPause, isLoading, isFullScreen} = this.state;
+      const {isPause, isPlaying, isFullScreen} = this.state;
 
       return (
         <Component
           {...this.props}
-          isLoading={isLoading}
+          isPlaying={isPlaying}
           isPause={isPause}
           isFullScreen={isFullScreen}
           onButtonPlayClick={() => {
@@ -28,6 +38,7 @@ const withPlayer = (Component) => {
             });
           }}
           onButtonFullScreenClick={() => {
+            this._toggleFullScreen();
             this.setState({
               isFullScreen: !isFullScreen
             });

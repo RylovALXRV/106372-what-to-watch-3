@@ -11,8 +11,9 @@ const initialState = {
   genres: generateGenresList(),
   movieNavLinkIndex: 0,
   promoMovie: movies[0],
-  player: false,
-  currentMovie: {},
+  isPlayerVisible: false,
+  currentMovie: null,
+  progress: 0,
   movies,
 };
 
@@ -23,9 +24,10 @@ const ActionType = {
   CHANGE_MOVIE_NAV: `CHANGE_MOVIE_NAV`,
   FILTER_BY_GENRE: `FILTER_BY_GENRE`,
   CHANGE_CURRENT_CARD: `CHANGE_CURRENT_CARD`,
-  ADD_PLAYER: `ADD_PLAYER`,
-  ADD_CURRENT_MOVIE: `ADD_CURRENT_MOVIE`,
+  SHOW_PLAYER: `ADD_PLAYER`,
+  SET_CURRENT_MOVIE: `ADD_CURRENT_MOVIE`,
   REMOVE_PLAYER: `REMOVE_PLAYER`,
+  SET_PROGRESS_MOVIE: `SET_PROGRESS_MOVIE`,
 };
 
 const ActionCreator = {
@@ -73,7 +75,7 @@ const ActionCreator = {
 
   addPlayer: () => {
     return {
-      type: ActionType.ADD_PLAYER,
+      type: ActionType.SHOW_PLAYER,
       payload: true,
     };
   },
@@ -87,8 +89,15 @@ const ActionCreator = {
 
   addCurrentMovie: (movie) => {
     return {
-      type: ActionType.ADD_CURRENT_MOVIE,
+      type: ActionType.SET_CURRENT_MOVIE,
       payload: movie,
+    };
+  },
+
+  setProgressMovie: (progress) => {
+    return {
+      type: ActionType.SET_PROGRESS_MOVIE,
+      payload: progress,
     };
   },
 };
@@ -135,19 +144,24 @@ const reducer = (state = initialState, action) => {
         activeCardIndex: action.payload,
       });
 
-    case ActionType.ADD_PLAYER:
+    case ActionType.SHOW_PLAYER:
       return extend(state, {
-        player: action.payload,
+        isPlayerVisible: action.payload,
       });
 
-    case ActionType.ADD_CURRENT_MOVIE:
+    case ActionType.SET_CURRENT_MOVIE:
       return extend(state, {
         currentMovie: action.payload,
       });
 
     case ActionType.REMOVE_PLAYER:
       return extend(state, {
-        player: action.payload,
+        isPlayerVisible: action.payload,
+      });
+
+    case ActionType.SET_PROGRESS_MOVIE:
+      return extend(state, {
+        progress: action.payload,
       });
   }
 

@@ -5,7 +5,7 @@ exports[`Should Player render correctly 1`] = `
   className="player"
 >
   <video
-    className=""
+    className="player__video"
     height="175"
     width="280"
   />
@@ -28,13 +28,13 @@ exports[`Should Player render correctly 1`] = `
         <progress
           className="player__progress"
           max="100"
-          value="30"
+          value={0}
         />
         <div
           className="player__toggler"
           style={
             Object {
-              "left": "30%",
+              "left": "0%",
             }
           }
         >
@@ -44,7 +44,7 @@ exports[`Should Player render correctly 1`] = `
       <div
         className="player__time-value"
       >
-        1:30:29
+        01:00:00
       </div>
     </div>
     <div

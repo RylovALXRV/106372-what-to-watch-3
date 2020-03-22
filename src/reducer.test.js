@@ -18,7 +18,7 @@ const filmFeature = {
   ACTORS: [[`Eddie Redmayne`, `Katherine Waterston`], [`Rami Malek`, `Lucy Boynton`], [`Jon Finch`, `Francesca Annis`],
     [`Leonardo DiCaprio`, `Cate Blanchett`], [`Tilda Swinton`, `Ezra Miller`], [`Jemaine Clement`, `Taika Waititi`],
     [`Tom Hardy`, `Domhnall Gleeson`], [`Rowan Atkinson`, `Jemaine Clement`]],
-  DURATIONS: [133, 134, 140, 170, 112, 82, 156, 87],
+  DURATIONS: [5, 14, 14, 17, 11, 10, 15, 5],
   DESCRIPTIONS: [
     `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge
       Gustave H. (Ralph Fiennes).`,
@@ -110,8 +110,9 @@ it(`Reducer without additional parameters should return initial state`, () => {
     genres: generateGenresList(),
     movieNavLinkIndex: 0,
     promoMovie: movies[0],
-    player: false,
-    currentMovie: {},
+    isPlayerVisible: false,
+    currentMovie: null,
+    progress: 0,
     movies,
   });
 });
@@ -125,8 +126,9 @@ it(`Reducer should change active card index by a given value`, () => {
     genres: generateGenresList(),
     movieNavLinkIndex: 0,
     promoMovie: movies[0],
-    player: false,
-    currentMovie: {},
+    isPlayerVisible: false,
+    currentMovie: null,
+    progress: 0,
     movies,
   }, {
     type: ActionType.CHANGE_ACTIVE_CARD_INDEX,
@@ -139,8 +141,9 @@ it(`Reducer should change active card index by a given value`, () => {
     genres: generateGenresList(),
     movieNavLinkIndex: 0,
     promoMovie: movies[0],
-    player: false,
-    currentMovie: {},
+    isPlayerVisible: false,
+    currentMovie: null,
+    progress: 0,
     movies,
   });
 
@@ -149,8 +152,12 @@ it(`Reducer should change active card index by a given value`, () => {
     amountCards: MovieCardIndex.DEFAULT,
     currentGenre: DEFAULT_GENRE,
     currentCard: false,
-    movieNavLinkIndex: 0,
     genres: generateGenresList(),
+    movieNavLinkIndex: 0,
+    promoMovie: movies[0],
+    player: false,
+    currentMovie: null,
+    progress: 0,
     movies,
   }, {
     type: ActionType.CHANGE_ACTIVE_CARD_INDEX,
@@ -160,8 +167,12 @@ it(`Reducer should change active card index by a given value`, () => {
     amountCards: MovieCardIndex.DEFAULT,
     currentGenre: DEFAULT_GENRE,
     currentCard: false,
-    movieNavLinkIndex: 0,
     genres: generateGenresList(),
+    movieNavLinkIndex: 0,
+    promoMovie: movies[0],
+    player: false,
+    currentMovie: null,
+    progress: 0,
     movies,
   });
 });
@@ -175,8 +186,9 @@ it(`Reducer should change current genre by a new genre`, () => {
     genres: generateGenresList(),
     movieNavLinkIndex: 0,
     promoMovie: movies[0],
-    player: false,
-    currentMovie: {},
+    isPlayerVisible: false,
+    currentMovie: null,
+    progress: 0,
     movies,
   }, {
     type: ActionType.CHANGE_GENRE,
@@ -189,8 +201,9 @@ it(`Reducer should change current genre by a new genre`, () => {
     genres: generateGenresList(),
     movieNavLinkIndex: 0,
     promoMovie: movies[0],
-    player: false,
-    currentMovie: {},
+    isPlayerVisible: false,
+    currentMovie: null,
+    progress: 0,
     movies,
   });
 
@@ -202,8 +215,9 @@ it(`Reducer should change current genre by a new genre`, () => {
     genres: generateGenresList(),
     movieNavLinkIndex: 0,
     promoMovie: movies[0],
-    player: false,
-    currentMovie: {},
+    isPlayerVisible: false,
+    currentMovie: null,
+    progress: 0,
     movies,
   }, {
     type: ActionType.CHANGE_GENRE,
@@ -216,8 +230,9 @@ it(`Reducer should change current genre by a new genre`, () => {
     genres: generateGenresList(),
     movieNavLinkIndex: 0,
     promoMovie: movies[0],
-    player: false,
-    currentMovie: {},
+    isPlayerVisible: false,
+    currentMovie: null,
+    progress: 0,
     movies,
   });
 });
@@ -231,8 +246,9 @@ it(`Reducer should filter current movies by a new movies`, () => {
     genres: generateGenresList(),
     movieNavLinkIndex: 0,
     promoMovie: movies[0],
-    player: false,
-    currentMovie: {},
+    isPlayerVisible: false,
+    currentMovie: null,
+    progress: 0,
     movies,
   }, {
     type: ActionType.FILTER_BY_GENRE,
@@ -245,8 +261,9 @@ it(`Reducer should filter current movies by a new movies`, () => {
     genres: generateGenresList(),
     movieNavLinkIndex: 0,
     promoMovie: movies[0],
-    player: false,
-    currentMovie: {},
+    isPlayerVisible: false,
+    currentMovie: null,
+    progress: 0,
     movies,
   });
 });
@@ -260,8 +277,9 @@ it(`Reducer should change current card by a new card`, () => {
     genres: generateGenresList(),
     movieNavLinkIndex: 0,
     promoMovie: movies[0],
-    player: false,
-    currentMovie: {},
+    isPlayerVisible: false,
+    currentMovie: null,
+    progress: 0,
     movies,
   }, {
     type: ActionType.CHANGE_CURRENT_CARD,
@@ -274,8 +292,9 @@ it(`Reducer should change current card by a new card`, () => {
     genres: generateGenresList(),
     movieNavLinkIndex: 0,
     promoMovie: movies[0],
-    player: false,
-    currentMovie: {},
+    isPlayerVisible: false,
+    currentMovie: null,
+    progress: 0,
     movies,
   });
 });
@@ -289,8 +308,9 @@ it(`Reducer should change movie nav index by a given value`, () => {
     genres: generateGenresList(),
     movieNavLinkIndex: 0,
     promoMovie: movies[0],
-    player: false,
-    currentMovie: {},
+    isPlayerVisible: false,
+    currentMovie: null,
+    progress: 0,
     movies,
   }, {
     type: ActionType.CHANGE_MOVIE_NAV,
@@ -303,8 +323,9 @@ it(`Reducer should change movie nav index by a given value`, () => {
     genres: generateGenresList(),
     movieNavLinkIndex: 2,
     promoMovie: movies[0],
-    player: false,
-    currentMovie: {},
+    isPlayerVisible: false,
+    currentMovie: null,
+    progress: 0,
     movies,
   });
 
@@ -316,8 +337,9 @@ it(`Reducer should change movie nav index by a given value`, () => {
     genres: generateGenresList(),
     movieNavLinkIndex: 0,
     promoMovie: movies[0],
-    player: false,
-    currentMovie: {},
+    isPlayerVisible: false,
+    currentMovie: null,
+    progress: 0,
     movies,
   }, {
     type: ActionType.CHANGE_MOVIE_NAV,
@@ -330,8 +352,9 @@ it(`Reducer should change movie nav index by a given value`, () => {
     genres: generateGenresList(),
     movieNavLinkIndex: 0,
     promoMovie: movies[0],
-    player: false,
-    currentMovie: {},
+    isPlayerVisible: false,
+    currentMovie: null,
+    progress: 0,
     movies,
   });
 });
@@ -345,11 +368,12 @@ it(`Reducer should change current movie by a new current movie`, () => {
     genres: generateGenresList(),
     movieNavLinkIndex: 0,
     promoMovie: movies[0],
-    player: false,
-    currentMovie: {},
+    isPlayerVisible: false,
+    currentMovie: null,
+    progress: 0,
     movies,
   }, {
-    type: ActionType.ADD_CURRENT_MOVIE,
+    type: ActionType.SET_CURRENT_MOVIE,
     payload: movies[0],
   })).toEqual({
     activeCardIndex: -1,
@@ -359,8 +383,9 @@ it(`Reducer should change current movie by a new current movie`, () => {
     genres: generateGenresList(),
     movieNavLinkIndex: 0,
     promoMovie: movies[0],
-    player: false,
+    isPlayerVisible: false,
     currentMovie: movies[0],
+    progress: 0,
     movies,
   });
 
@@ -372,12 +397,13 @@ it(`Reducer should change current movie by a new current movie`, () => {
     genres: generateGenresList(),
     movieNavLinkIndex: 0,
     promoMovie: movies[0],
-    player: false,
-    currentMovie: {},
+    isPlayerVisible: false,
+    currentMovie: null,
+    progress: 0,
     movies,
   }, {
-    type: ActionType.ADD_CURRENT_MOVIE,
-    payload: {},
+    type: ActionType.SET_CURRENT_MOVIE,
+    payload: null,
   })).toEqual({
     activeCardIndex: -1,
     amountCards: MovieCardIndex.DEFAULT,
@@ -386,13 +412,14 @@ it(`Reducer should change current movie by a new current movie`, () => {
     genres: generateGenresList(),
     movieNavLinkIndex: 0,
     promoMovie: movies[0],
-    player: false,
-    currentMovie: {},
+    isPlayerVisible: false,
+    currentMovie: null,
+    progress: 0,
     movies,
   });
 });
 
-it(`Reducer should add player`, () => {
+it(`Reducer should show player`, () => {
   expect(reducer({
     activeCardIndex: -1,
     amountCards: MovieCardIndex.DEFAULT,
@@ -401,11 +428,12 @@ it(`Reducer should add player`, () => {
     genres: generateGenresList(),
     movieNavLinkIndex: 0,
     promoMovie: movies[0],
-    player: false,
-    currentMovie: {},
+    isPlayerVisible: false,
+    currentMovie: null,
+    progress: 0,
     movies,
   }, {
-    type: ActionType.ADD_PLAYER,
+    type: ActionType.SHOW_PLAYER,
     payload: true,
   })).toEqual({
     activeCardIndex: -1,
@@ -415,8 +443,9 @@ it(`Reducer should add player`, () => {
     genres: generateGenresList(),
     movieNavLinkIndex: 0,
     promoMovie: movies[0],
-    player: true,
-    currentMovie: {},
+    isPlayerVisible: true,
+    currentMovie: null,
+    progress: 0,
     movies,
   });
 
@@ -428,11 +457,12 @@ it(`Reducer should add player`, () => {
     genres: generateGenresList(),
     movieNavLinkIndex: 0,
     promoMovie: movies[0],
-    player: false,
-    currentMovie: {},
+    isPlayerVisible: false,
+    currentMovie: null,
+    progress: 0,
     movies,
   }, {
-    type: ActionType.ADD_PLAYER,
+    type: ActionType.SHOW_PLAYER,
     payload: false,
   })).toEqual({
     activeCardIndex: -1,
@@ -442,8 +472,69 @@ it(`Reducer should add player`, () => {
     genres: generateGenresList(),
     movieNavLinkIndex: 0,
     promoMovie: movies[0],
-    player: false,
-    currentMovie: {},
+    isPlayerVisible: false,
+    currentMovie: null,
+    progress: 0,
+    movies,
+  });
+});
+
+it(`Reducer should set progress movie by a new progress`, () => {
+  expect(reducer({
+    activeCardIndex: -1,
+    amountCards: MovieCardIndex.DEFAULT,
+    currentGenre: DEFAULT_GENRE,
+    currentCard: false,
+    genres: generateGenresList(),
+    movieNavLinkIndex: 0,
+    promoMovie: movies[0],
+    isPlayerVisible: false,
+    currentMovie: null,
+    progress: 0,
+    movies,
+  }, {
+    type: ActionType.SET_PROGRESS_MOVIE,
+    payload: 2,
+  })).toEqual({
+    activeCardIndex: -1,
+    amountCards: MovieCardIndex.DEFAULT,
+    currentGenre: DEFAULT_GENRE,
+    currentCard: false,
+    genres: generateGenresList(),
+    movieNavLinkIndex: 0,
+    promoMovie: movies[0],
+    isPlayerVisible: false,
+    currentMovie: null,
+    progress: 2,
+    movies,
+  });
+
+  expect(reducer({
+    activeCardIndex: -1,
+    amountCards: MovieCardIndex.DEFAULT,
+    currentGenre: DEFAULT_GENRE,
+    currentCard: false,
+    genres: generateGenresList(),
+    movieNavLinkIndex: 0,
+    promoMovie: movies[0],
+    isPlayerVisible: false,
+    currentMovie: null,
+    progress: 0,
+    movies,
+  }, {
+    type: ActionType.SET_PROGRESS_MOVIE,
+    payload: 0,
+  })).toEqual({
+    activeCardIndex: -1,
+    amountCards: MovieCardIndex.DEFAULT,
+    currentGenre: DEFAULT_GENRE,
+    currentCard: false,
+    genres: generateGenresList(),
+    movieNavLinkIndex: 0,
+    promoMovie: movies[0],
+    isPlayerVisible: false,
+    currentMovie: null,
+    progress: 0,
     movies,
   });
 });

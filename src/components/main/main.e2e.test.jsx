@@ -1,10 +1,15 @@
 import React from "react";
-import renderer from "react-test-renderer";
-import Main from "./main.jsx";
+import {configure, mount} from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
+import {Main} from "./main";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import {DEFAULT_GENRE} from "../../const";
 import movies from "../../mocks/movies";
+
+configure({
+  adapter: new Adapter(),
+});
 
 const promoMovie = {
   title: `Bohemian Rhapsody`,
@@ -76,7 +81,7 @@ const generateGenresList = () => {
 
 const mockStore = configureStore([]);
 
-it(`Should Main render correctly`, () => {
+it(`Should Main button be pressed`, () => {
   const store = mockStore({
     activeCardIndex: -1,
     amountCards: 1,
@@ -91,21 +96,34 @@ it(`Should Main render correctly`, () => {
     movies,
   });
 
-  const tree = renderer.create(
+  const onMovieCardClick = jest.fn();
+  const onButtonShowMoreClick = jest.fn();
+  const onMovieButtonPlayClick = jest.fn();
+
+  const main = mount(
       <Provider store={store}>
         <Main
+          onMovieCardClick={onMovieCardClick}
+          onButtonClick={onButtonShowMoreClick}
+          onMovieButtonPlayClick={onMovieButtonPlayClick}
           promoMovie={promoMovie}
+          amountCards={1}
           movies={mock}
-          onMovieCardClick={() => {}}
-          onMovieButtonPlayClick={() => {}}
-          onButtonClick={() => {}}
         />
-      </Provider>, {
-        createNodeMock: () => {
-          return {};
-        }
-      }
-  ).toJSON();
+      </Provider>
+  );
 
-  expect(tree).toMatchSnapshot();
+  const movieCardElement = main.find(`a.small-movie-card__link`).at(0);
+  const buttonShowMoreElement = main.find(`button.catalog__button`);
+  const movieButtonPlayElement = main.find(`button.btn--play`);
+
+  movieCardElement.simulate(`click`, {preventDefault() {}});
+  buttonShowMoreElement.simulate(`click`);
+  movieButtonPlayElement.simulate(`click`);
+
+  expect(onMovieCardClick).toHaveBeenCalledTimes(1);
+  expect(onButtonShowMoreClick).toHaveBeenCalledTimes(1);
+  expect(onMovieButtonPlayClick).toHaveBeenCalledTimes(1);
+  expect(onMovieCardClick).toHaveBeenCalledWith(mock[0]);
+  expect(onMovieButtonPlayClick).toHaveBeenCalledWith(promoMovie);
 });

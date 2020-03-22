@@ -1,6 +1,8 @@
 import React from "react";
 import {configure, mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
 import {Movies} from "./movies.jsx";
 
 configure({
@@ -28,18 +30,24 @@ const mock = [
   }
 ];
 
-it(`Should Movies`, () => {
+const mockStore = configureStore([]);
+
+it(`Should Movies buttons be pressed`, () => {
   const onMovieCardClick = jest.fn();
   const onMovieCardMouse = jest.fn();
 
+  const store = mockStore({});
+
   const movies = mount(
-      <Movies
-        movies={mock}
-        activeCardIndex={-1}
-        amountCards={8}
-        onMovieCardClick={onMovieCardClick}
-        onMovieCard={onMovieCardMouse}
-      />
+      <Provider store={store}>
+        <Movies
+          movies={mock}
+          activeCardIndex={-1}
+          amountCards={8}
+          onMovieCardClick={onMovieCardClick}
+          onMovieCard={onMovieCardMouse}
+        />
+      </Provider>
   );
 
   const movieCardAnchorElement = movies.find(`a.small-movie-card__link`).at(0);

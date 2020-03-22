@@ -1,6 +1,8 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import {Movies} from "./movies";
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
+import Movies from "./movies.jsx";
 
 const mock = [
   {
@@ -23,15 +25,24 @@ const mock = [
   }
 ];
 
+const mockStore = configureStore([]);
+
 it(`Should Movies render correctly`, () => {
+  const store = mockStore({
+    activeCardIndex: -1,
+    amountCards: 1,
+  });
+
   const tree = renderer.create(
-      <Movies
-        movies={mock}
-        onMovieCardClick={() => {}}
-        onMovieCard={() => {}}
-        activeCardIndex={-1}
-        amountCards={8}
-      />, {
+      <Provider store={store}>
+        <Movies
+          movies={mock}
+          onMovieCardClick={() => {}}
+          onMovieCard={() => {}}
+          activeCardIndex={-1}
+          amountCards={1}
+        />
+      </Provider>, {
         createNodeMock: () => {
           return {};
         }

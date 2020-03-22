@@ -15,7 +15,7 @@ const filmFeature = {
   ACTORS: [[`Eddie Redmayne`, `Katherine Waterston`], [`Rami Malek`, `Lucy Boynton`], [`Jon Finch`, `Francesca Annis`],
     [`Leonardo DiCaprio`, `Cate Blanchett`], [`Tilda Swinton`, `Ezra Miller`], [`Jemaine Clement`, `Taika Waititi`],
     [`Tom Hardy`, `Domhnall Gleeson`], [`Rowan Atkinson`, `Jemaine Clement`]],
-  DURATIONS: [133, 134, 140, 170, 112, 82, 156, 87],
+  DURATIONS: [5, 14, 14, 17, 11, 10, 15, 5],
   DESCRIPTIONS: [
     `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge
       Gustave H. (Ralph Fiennes).`,

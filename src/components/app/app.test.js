@@ -3,7 +3,8 @@ import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import {App} from "./app.jsx";
-import {DEFAULT_GENRE} from "../../const";
+import {DEFAULT_GENRE, MovieCardIndex} from "../../const";
+import movies from "../../mocks/movies";
 
 const promoMovie = {
   title: `Bohemian Rhapsody`,
@@ -59,12 +60,14 @@ const generateGenresList = () => {
 
 it(`Render App`, () => {
   const store = mockStore({
-    currentGenre: `All genres`,
-    activeGenreLinkId: 0,
-    amountCards: 8,
     activeCardIndex: -1,
-    movieNavLinkIndex: 0,
+    amountCards: MovieCardIndex.DEFAULT,
+    currentGenre: DEFAULT_GENRE,
+    currentCard: false,
     genres: generateGenresList(),
+    movieNavLinkIndex: 0,
+    promoMovie: movies[0],
+    movies,
   });
 
   const tree = renderer.create(
@@ -73,8 +76,8 @@ it(`Render App`, () => {
           promoMovie={promoMovie}
           movies={mock}
           onMovieCardClick={() => {}}
-          player={false}
-          currentMovie={{}}
+          isPlayerVisible={false}
+          currentMovie={null}
         />
       </Provider>, {
         createNodeMock: () => {

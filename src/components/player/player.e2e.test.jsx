@@ -12,14 +12,15 @@ const mock = {
     preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     poster: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     title: `fantastic-beasts-the-crimes-of-grindelwald`,
+    duration: 25,
   },
-  isLoading: true,
+  isPlaying: true,
   isPause: true,
   isFullScreen: false,
 };
 
 it(`Should Player button be pressed`, () => {
-  const {movie, isLoading, isPause, isFullScreen} = mock;
+  const {movie, isPlaying, isPause, isFullScreen} = mock;
 
   const onButtonExitClick = jest.fn();
   const onButtonPlayClick = jest.fn();
@@ -32,7 +33,7 @@ it(`Should Player button be pressed`, () => {
         onButtonFullScreenClick={onButtonFullScreenClick}
         onButtonPlayClick={onButtonPlayClick}
         isPause={isPause}
-        isLoading={isLoading}
+        isPlaying={isPlaying}
         onButtonExitClick={onButtonExitClick}
       />
   );

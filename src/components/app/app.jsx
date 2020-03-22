@@ -10,9 +10,9 @@ import withPlayer from "../../hocs/with-player.jsx";
 
 const PlayerWrapped = withPlayer(Player);
 
-const App = ({promoMovie, movies, onMovieCardClick, currentCard, player, currentMovie}) => {
+const App = ({promoMovie, movies, onMovieCardClick, currentCard, isPlayerVisible, currentMovie}) => {
   const renderMovieScreen = () => {
-    if (!currentCard && !player) {
+    if (!currentCard && !isPlayerVisible) {
       return (
         <Main
           promoMovie={promoMovie}
@@ -22,7 +22,7 @@ const App = ({promoMovie, movies, onMovieCardClick, currentCard, player, current
       );
     }
 
-    if (player) {
+    if (isPlayerVisible) {
       return (
         <PlayerWrapped
           movie={currentMovie}
@@ -109,15 +109,19 @@ App.propTypes = {
     PropTypes.object,
     PropTypes.bool,
   ]),
-  player: PropTypes.bool.isRequired,
-  currentMovie: PropTypes.object.isRequired,
+  isPlayerVisible: PropTypes.bool.isRequired,
+  currentMovie: PropTypes.object,
+};
+
+App.defaultProps = {
+  currentMovie: null,
 };
 
 const mapStateToProps = (state) => ({
   movies: state.movies,
   currentCard: state.currentCard,
   promoMovie: state.promoMovie,
-  player: state.player,
+  isPlayerVisible: state.isPlayerVisible,
   currentMovie: state.currentMovie,
 });
 

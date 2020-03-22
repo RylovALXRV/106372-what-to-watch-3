@@ -1,38 +1,40 @@
 import React from "react";
 import PropTypes from "prop-types";
 import VideoPlayer from "../video-player/video-player.jsx";
+import PlayerControls from "../player-controls/player-controls.jsx";
 import {ActionCreator} from "../../reducer";
 import {connect} from "react-redux";
+import {isFullScreenOpen} from "../../utils";
+import {PLAYER_VIDEO_CLASSNAME} from "../../const";
 
-const Player = ({onButtonExitClick, onButtonPlayClick, onButtonFullScreenClick, movie, isPause, isLoading, isFullScreen}) => {
-  const {preview, poster, title} = movie;
+const Player = ({onButtonExitClick, onButtonPlayClick, onButtonFullScreenClick, movie, isPause, isPlaying, isFullScreen}) => {
+  const {preview, poster, title, duration} = movie;
 
   return (
     <div className="player">
       <VideoPlayer
         preview={preview}
         poster={poster}
-        isPlaying={isLoading}
-        className={isFullScreen ? `player__video` : ``}
+        isPlaying={isPlaying}
+        isFullScreen={isFullScreen}
         isMuted={false}
         isPause={isPause}
+        className={PLAYER_VIDEO_CLASSNAME}
       />
 
       <button
         type="button"
         className="player__exit"
-        onClick={onButtonExitClick}
+        onClick={() => {
+          onButtonExitClick();
+          isFullScreenOpen();
+        }}
       >Exit</button>
 
       <div className="player__controls">
-        <div className="player__controls-row">
-          <div className="player__time">
-            <progress className="player__progress" value="30" max="100" />
-            <div className="player__toggler" style={{left: `30%`}}>Toggler</div>
-          </div>
-          <div className="player__time-value">1:30:29</div>
-        </div>
-
+        <PlayerControls
+          duration={duration}
+        />
         <div className="player__controls-row">
           <button
             type="button"
@@ -49,7 +51,10 @@ const Player = ({onButtonExitClick, onButtonPlayClick, onButtonFullScreenClick, 
           <button
             type="button"
             className="player__full-screen"
-            onClick={onButtonFullScreenClick}
+            onClick={() => {
+              onButtonFullScreenClick();
+              // toggleFullScreen();
+            }}
           >
             <svg viewBox="0 0 27 27" width="27" height="27">
               <use xlinkHref="#full-screen" />
@@ -67,13 +72,14 @@ Player.propTypes = {
     preview: PropTypes.string.isRequired,
     poster: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
+    duration: PropTypes.number.isRequired,
   }).isRequired,
   onButtonExitClick: PropTypes.func.isRequired,
-  isPause: PropTypes.bool.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  isFullScreen: PropTypes.bool.isRequired,
   onButtonPlayClick: PropTypes.func.isRequired,
   onButtonFullScreenClick: PropTypes.func.isRequired,
+  isPause: PropTypes.bool.isRequired,
+  isPlaying: PropTypes.bool.isRequired,
+  isFullScreen: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
